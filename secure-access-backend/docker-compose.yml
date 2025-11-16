@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: secureaccess-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: SecurityAccessLite
+      MYSQL_USER: secureaccess
+      MYSQL_PASSWORD: secureaccess123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - secureaccess-network
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  secureaccess-network:
+    driver: bridge

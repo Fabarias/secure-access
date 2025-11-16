@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.loginsControllers.LoginCiudadanoController">
+   <children>
+      <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#regresarDelLoginCiudadano" text="Regresar" />
+      <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="166.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutY="140.0" prefHeight="20.0" prefWidth="455.0" text="Acceso Ciudadano" />
+      <Label layoutY="170.0" prefHeight="20.0" prefWidth="455.0" text="Ingresa tus datos para consultar el sistema" />
+      <Label layoutX="15.0" layoutY="205.0" prefHeight="20.0" prefWidth="440.0" text="Usuario" />
+      <TextField fx:id="textoUsuario" layoutX="15.0" layoutY="230.0" prefHeight="25.0" prefWidth="345.0" promptText="Ingrese el nombre de usuario" />
+      <Label layoutX="15.0" layoutY="265.0" prefHeight="20.0" prefWidth="440.0" text="Contraseña" />
+      <PasswordField fx:id="claveCiudadano" layoutX="15.0" layoutY="290.0" prefHeight="25.0" prefWidth="345.0" promptText="Ingrese su contraseña" />
+      <Button layoutX="60.0" layoutY="340.0" mnemonicParsing="false" onAction="#accesoLoginCiudadano" prefHeight="25.0" prefWidth="150.0" text="Ingresar" />
+      <Button layoutX="240.0" layoutY="340.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="¿No tienes un usuario?" />
+   </children>
+</AnchorPane>

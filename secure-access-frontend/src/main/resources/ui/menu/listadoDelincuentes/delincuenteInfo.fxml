@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="496.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.ui.dashboard.secciones.DelincuenteInfo">
+   <children>
+      <Label layoutX="512.0" layoutY="14.0" prefHeight="18.0" prefWidth="73.0" text="SecureAccess" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" text="Regresar" />
+      <Label layoutX="14.0" layoutY="207.0" prefHeight="18.0" prefWidth="53.0" text="Nombres:" />
+      <Label layoutX="14.0" layoutY="234.0" prefHeight="18.0" prefWidth="37.0" text="Delito:" />
+      <Label layoutX="14.0" layoutY="260.0" prefHeight="18.0" prefWidth="62.0" text="Descripción" />
+      <Label layoutX="68.0" layoutY="208.0" prefHeight="18.0" prefWidth="532.0" text="Label" />
+      <Label layoutX="52.0" layoutY="234.0" prefHeight="18.0" prefWidth="532.0" text="Label" />
+      <Label layoutX="14.0" layoutY="278.0" prefHeight="18.0" prefWidth="300.0" />
+      <Label layoutX="15.0" layoutY="303.0" prefHeight="18.0" prefWidth="74.0" text="Recompensa:" />
+      <Label layoutX="88.0" layoutY="303.0" prefHeight="18.0" prefWidth="74.0" />
+   </children>
+</AnchorPane>

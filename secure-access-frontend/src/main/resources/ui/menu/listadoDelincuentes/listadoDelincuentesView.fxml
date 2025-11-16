@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers.listadoDelincuentesController">
+   <children>
+      <Label layoutX="255.0" layoutY="27.0" text="Lo más buscados" />
+      <HBox layoutX="14.0" layoutY="87.0" prefHeight="37.0" prefWidth="421.0">
+         <children>
+            <TextField fx:id="filtroNombre" prefHeight="26.0" prefWidth="130.0" promptText="Buscar por Nombres" />
+            <TextField fx:id="filtroApellidos" prefHeight="26.0" prefWidth="129.0" promptText="Buscar por Apellidos" />
+            <ComboBox fx:id="comboDepartamentos" editable="true" prefHeight="26.0" prefWidth="177.0" promptText="Filtrar por Departamento" visibleRowCount="7" />
+         </children>
+      </HBox>
+      <Button layoutX="449.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Buscar" />
+      <TableView fx:id="tablaDelincuentes" layoutX="14.0" layoutY="124.0" prefHeight="458.0" prefWidth="421.0">
+        <columns>
+          <TableColumn fx:id="columnaNombre" prefWidth="100.0" text="Nombre" />
+          <TableColumn fx:id="columnaApellidos" prefWidth="100.0" text="Apellidos" />
+            <TableColumn fx:id="columnnaDelito" prefWidth="100.0" text="Delito" />
+            <TableColumn fx:id="columnaRecompensa" prefWidth="129.0" text="Recompensa" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.eleccionControllers.terceraEleccionController">
+   <children>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#regresarAEleccion" text="Regresar" />
+      <ImageView fitHeight="90.0" fitWidth="100.0" layoutX="176.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/administrador.png" />
+         </image></ImageView>
+      <Label layoutY="310.0" prefHeight="18.0" prefWidth="450.0" text="2. Acceso a registros de información y actividad por parte de los usuarios" />
+      <Label layoutX="1.0" layoutY="182.0" prefHeight="20.0" prefWidth="450.0" text="Administrador" />
+      <Label layoutY="340.0" prefHeight="18.0" prefWidth="450.0" text="3. Desactivación de perfiles y aceptación a solicitudes para nuevas cuentas" />
+      <Label layoutY="280.0" prefHeight="18.0" prefWidth="450.0" text="1. Control global de los distintos perfiles de usuarios" />
+      <Label layoutY="210.0" prefHeight="20.0" prefWidth="450.0" text="Acceso autorizado para personal admnistrativo del sistema" />
+      <Button layoutY="240.0" mnemonicParsing="false" onAction="#accesoLoginAdministrador" text="Ingresar como Administrador" />
+   </children>
+</AnchorPane>

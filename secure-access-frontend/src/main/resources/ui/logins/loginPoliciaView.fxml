@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.loginsControllers.LoginPoliciaController">
+   <children>
+      <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#regresarDelLoginPolicia" text="Regresar" />
+      <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="163.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutY="134.0" prefHeight="17.0" prefWidth="450.0" text="Acceso Policial" />
+      <Label layoutY="160.0" prefHeight="17.0" prefWidth="450.0" text="Sistema de autenticación para personal autorizado" />
+      <Label layoutX="15.0" layoutY="200.0" prefHeight="17.0" prefWidth="435.0" text="Número de Placa" />
+      <TextField fx:id="textoPlaca" layoutX="15.0" layoutY="225.0" prefHeight="25.0" prefWidth="345.0" promptText="Ingrese su número de placa" />
+      <Label layoutX="15.0" layoutY="260.0" prefHeight="17.0" prefWidth="435.0" text="Contraseña" />
+      <PasswordField fx:id="clavePolicia" layoutX="14.0" layoutY="285.0" prefHeight="26.0" prefWidth="346.0" promptText="Ingrese su contraseña" />
+      <Button layoutX="151.0" layoutY="340.0" mnemonicParsing="false" onAction="#accesoLoginPolicia" prefHeight="25.0" prefWidth="150.0" text="Ingresar" />
+   </children>
+</AnchorPane>
