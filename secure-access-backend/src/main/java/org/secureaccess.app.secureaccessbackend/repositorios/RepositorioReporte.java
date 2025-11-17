@@ -23,13 +23,12 @@ public class RepositorioReporte {
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, reporte.getReporteId());
-            preparedStatement.setInt(2, reporte.getCategoriaDelitoId());
-            preparedStatement.setString(3, reporte.getDepartamento());
-            preparedStatement.setInt(4, reporte.getCiudadanoId());
-            preparedStatement.setTimestamp(5, Timestamp.valueOf(reporte.getFechaDelito()));
-            preparedStatement.setString(6, reporte.getEstadoReporte());
-            preparedStatement.setString(7, reporte.getDescripcion());
+            preparedStatement.setInt(1, reporte.getCategoriaDelitoId());
+            preparedStatement.setString(2, reporte.getDepartamento());
+            preparedStatement.setInt(3, reporte.getCiudadanoId());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(reporte.getFechaDelito()));
+            preparedStatement.setString(5, reporte.getEstadoReporte());
+            preparedStatement.setString(6, reporte.getDescripcion());
 
             return preparedStatement.executeUpdate() > 0;
 

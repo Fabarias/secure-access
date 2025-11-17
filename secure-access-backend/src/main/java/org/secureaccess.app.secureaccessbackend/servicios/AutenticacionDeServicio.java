@@ -58,6 +58,8 @@ public class AutenticacionDeServicio {
 
             if (BCrypt.checkpw(claveIngresada, usuario.getUsuarioClave())) {
                 System.out.println("Bienvenido");
+                usuario.setUsuarioClave(null);
+
                 return Optional.of(usuario);
             } else {
                 return Optional.empty();
