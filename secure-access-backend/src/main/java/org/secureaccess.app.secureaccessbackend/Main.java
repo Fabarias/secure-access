@@ -1,18 +1,32 @@
 package org.secureaccess.app.secureaccessbackend;
 
-import org.secureaccess.app.secureaccessbackend.modelo.UsuarioAdministrador;
-import org.secureaccess.app.secureaccessbackend.nucleo.AutenticacionDeServicio;
+import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
+import org.secureaccess.app.secureaccessbackend.servicios.AutenticacionDeServicio;
 
 
+import java.sql.SQLException;
 import java.util.Optional;
-import java.util.Scanner;
-//12345
+
 public class Main {
-    public static void main(String[] args) {
-        Scanner lec = new Scanner(System.in);
-        AutenticacionDeServicio auth = new AutenticacionDeServicio();
-        Optional <UsuarioAdministrador> admin = auth.iniciarSesion(UsuarioAdministrador.class,"Admin","Jonathantl");
-        admin.ifPresent(UsuarioAdministrador::crearPolicia);
-      }
+    public static void main(String[] args) throws SQLException {
+        AutenticacionDeServicio authService = new AutenticacionDeServicio();
+
+        String usuarioAdmin = "Admin";
+        String claveAdmin = "Jonathantl";
+
+        System.out.println("Intentando iniciar sesión con: " + usuarioAdmin);
+
+        Optional<Usuario> resultado = authService.iniciarSesion(usuarioAdmin, claveAdmin);
+
+        // 4. Verificar el resultado
+        if (resultado.isPresent()) {
+            Usuario u = resultado.get();
+
+            System.out.println("\n¡LOGIN EXITOSO!");
+            System.out.println("----------------------------------");
+            System.out.println("Nombre: " + u.getNombre() + " " + u.getApellido());
+            System.out.println("Rol ID: " + u.getRolId());
+        }
     }
+}
 
