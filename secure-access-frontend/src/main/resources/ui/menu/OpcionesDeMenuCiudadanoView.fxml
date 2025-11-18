@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuAdministradorController">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuCiudadanoController">
    <children>
       <Label layoutX="325.0" layoutY="82.0" text="¡Bienvenido a SecureAccess!" />
       <HBox layoutX="90.0" layoutY="212.0" prefHeight="100.0" prefWidth="620.0" spacing="20.0">
@@ -14,6 +14,7 @@
          </children>
       </HBox>
       <Label layoutX="14.0" layoutY="14.0" text="SecureAccess" />
-      <Label layoutX="223.0" layoutY="135.0" text="Aquí tienes las opciones que puedes elegir, Administrador Nombre" />
+      <Label layoutX="223.0" layoutY="135.0" prefHeight="18.0" prefWidth="229.0" text="Aquí tienes las opciones que puedes elegir," />
+      <Label fx:id="labelNombreCiudadano" layoutX="453.0" layoutY="136.0" text="Label" />
    </children>
 </AnchorPane>
