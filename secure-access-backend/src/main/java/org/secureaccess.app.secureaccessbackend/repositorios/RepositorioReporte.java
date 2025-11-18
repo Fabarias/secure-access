@@ -1,8 +1,10 @@
 package org.secureaccess.app.secureaccessbackend.repositorios;
 
 import org.secureaccess.app.secureaccessbackend.config.DataBaseControl;
+import org.secureaccess.app.secureaccessbackend.modelos.CategoriaDelito;
 import org.secureaccess.app.secureaccessbackend.modelos.Reporte;
 
+import java.nio.channels.ScatteringByteChannel;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,14 +13,13 @@ import java.util.List;
 public class RepositorioReporte {
 
     public boolean guardar(Reporte reporte) {
-
-        String sql = "INSERT INTO tablareportes (categoriaDelitoID," +
-                " departamento, " +
-                "ciudadanoId, " +
-                "fechaDelito, " +
-                "estadoReporte, " +
-                "descripcion) " +
+        String sql = "INSERT INTO tablareportes (categoriaDelitoID, departamento, ciudadanoId, fechaDelito, estadoReporte, descripción) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
+
+        System.out.println("CategoriaID: " + reporte.getCategoriaDelitoId());
+        System.out.println("Departamento: " + reporte.getDepartamento());
+        System.out.println("CiudadanoID: " + reporte.getCiudadanoId());
+        System.out.println("Estado: " + reporte.getEstadoReporte());  // ← IMPORTANTE: debe ser "Espera"
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -30,15 +31,15 @@ public class RepositorioReporte {
             preparedStatement.setString(5, reporte.getEstadoReporte());
             preparedStatement.setString(6, reporte.getDescripcion());
 
-            return preparedStatement.executeUpdate() > 0;
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            return filasAfectadas > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
     }
-
     public List<Reporte> listarPorEstado(String estadoFiltro) {
 
         List<Reporte> lista = new ArrayList<>();
@@ -93,4 +94,16 @@ public class RepositorioReporte {
                 resultSet.getString("descripcion")
         );
     }
+   public int IndiceCategoriaDelito (String nombreDelito) throws SQLException {
+     String query = "Select categoriaID from categoriadelito where nombreDelito = '"+nombreDelito+"'";
+       int indice = 0;
+      try(Connection connection = DataBaseControl.getConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement(query)){
+          ResultSet resultSet = preparedStatement.executeQuery();
+          while (resultSet.next()) {
+               indice = resultSet.getInt("categoriaID");
+          }
+      }
+      return indice;
+   }
 }
