@@ -57,6 +57,5 @@ public class ReporteServicio {
         }
         String nuevoEstado = aceptar ? "Aceptado" : "Rechazado";
         boolean actualizado = repositorioReporte.actualizarEstado(idReporte, nuevoEstado);
-
     }
 }

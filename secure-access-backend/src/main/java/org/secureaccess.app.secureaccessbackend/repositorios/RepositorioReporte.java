@@ -79,7 +79,6 @@ public class RepositorioReporte {
             return false;
         }
     }
-
     private Reporte mapearReporte(ResultSet resultSet) throws SQLException {
         Timestamp timestamp = resultSet.getTimestamp("fechaDelito");
         LocalDateTime fecha = (timestamp != null) ? timestamp.toLocalDateTime() : null;
