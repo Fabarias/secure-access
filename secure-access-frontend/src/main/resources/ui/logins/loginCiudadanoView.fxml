@@ -15,6 +15,6 @@
       <Label layoutX="15.0" layoutY="265.0" prefHeight="20.0" prefWidth="440.0" text="Contraseña" />
       <PasswordField fx:id="claveCiudadano" layoutX="15.0" layoutY="290.0" prefHeight="25.0" prefWidth="345.0" promptText="Ingrese su contraseña" />
       <Button layoutX="60.0" layoutY="340.0" mnemonicParsing="false" onAction="#accesoLoginCiudadano" prefHeight="25.0" prefWidth="150.0" text="Ingresar" />
-      <Button layoutX="240.0" layoutY="340.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="¿No tienes un usuario?" />
+      <Button layoutX="240.0" layoutY="340.0" mnemonicParsing="false" onAction="#irACrearCiudadano" prefHeight="25.0" prefWidth="150.0" text="¿No tienes un usuario?" />
    </children>
 </AnchorPane>

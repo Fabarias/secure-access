@@ -6,11 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
+import org.secureaccess.app.secureaccessbackend.servicios.AutenticacionDeServicio;
+import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuAdministradorController;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class LoginAdministradorController {
 
@@ -20,25 +25,70 @@ public class LoginAdministradorController {
     @FXML
     PasswordField claveUsuarioAdministrador;
 
+    private final AutenticacionDeServicio auth = new AutenticacionDeServicio();
+
     @FXML
     public void regresarDelLoginAdministrador(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlSeleccion = new FXMLLoader(getClass().getResource("/ui/selection/terceraEleccionView.fxml"));
-
-        Parent seleccion = fxmlSeleccion.load();
-
-        Scene escenaSeleccion = new Scene(seleccion);
-        Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        ventanaActual.setTitle("SecureAccess - Eleccion");
-        ventanaActual.setScene(escenaSeleccion);
-        ventanaActual.show();
+        cambioDeEscena(event, "/ui/selection/terceraEleccionView.fxml", "SecureAccess - Elección", null);
     }
 
     @FXML
     public void ingresarUsuarioAdministrador(ActionEvent event) {
+        String usuario = nombreUsuarioAdministrador.getText();
+        String clave = claveUsuarioAdministrador.getText();
 
+        if (usuario.isEmpty() || clave.isEmpty()) {
+            mostrarAlerta("Campos vacíos", "Por favor, ingrese usuario y contraseña");
+            return;
+        }
 
+        Optional<Usuario> resultado = auth.iniciarSesion(usuario, clave);
+
+        if (resultado.isPresent()) {
+
+            Usuario admin = resultado.get();
+
+            if (admin.getRolId() == 1) {
+                try {
+                    cambioDeEscena(event, "/ui/menu/OpcionesDeMenuAdministradorView.fxml", "Menú Administrador", admin);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    mostrarAlerta("Error", "No se pudo cargar el menú");
+                }
+            } else {
+                mostrarAlerta("Acceso Denegado", "Este usuario no tienes permisos de Administrador");
+            }
+        } else {
+            mostrarAlerta("Error de Acceso", "Usuario o contraseña incorrectos");
+        }
+
+    }
+
+    private void cambioDeEscena(ActionEvent event, String fxmlRuta,
+                                String titulo, Usuario usuarioIniciado) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlRuta));
+        Parent root = loader.load();
+
+        if (usuarioIniciado != null &&
+                loader.getController() instanceof OpcionesDelMenuAdministradorController) {
+            OpcionesDelMenuAdministradorController controlador = loader.getController();
+            controlador.iniciarDatos(usuarioIniciado);
+        }
+
+        Scene escena = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle(titulo);
+        stage.setScene(escena);
+        stage.show();
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(titulo);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
 
