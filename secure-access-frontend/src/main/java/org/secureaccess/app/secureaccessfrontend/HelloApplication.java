@@ -15,7 +15,6 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/selection/eleccionView.fxml"));
 
         Parent root = fxmlLoader.load();
-
         Scene scene = new Scene(root);
 
         primaryStage.setTitle("SecureAccess - Panel");
