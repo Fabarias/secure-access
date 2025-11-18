@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.registersControllers.RegistroCiudadanoController">
+   <children>
+      <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#regresarAlLoginCiudadano" text="Regresar" />
+      <Label layoutY="60.0" prefHeight="20.0" prefWidth="600.0" text="Registro para un nuevo Ciudadano" />
+      <TextField fx:id="nombreCiudadano" layoutX="40.0" layoutY="125.0" />
+      <TextField fx:id="apellidoCiudadano" layoutX="40.0" layoutY="185.0" />
+      <TextField fx:id="usuarioCiudadano" layoutX="40.0" layoutY="245.0" />
+      <PasswordField fx:id="claveCiudadano" layoutX="40.0" layoutY="305.0" />
+      <Label layoutX="40.0" layoutY="100.0" text="Nombre" />
+      <Label layoutX="40.0" layoutY="160.0" text="Primer Apellido" />
+      <Label layoutX="40.0" layoutY="220.0" text="Nombre de Usuario" />
+      <Label layoutX="40.0" layoutY="280.0" text="Contraseña" />
+      <Button layoutX="60.0" layoutY="360.0" mnemonicParsing="false" onAction="#registrarCiudadano" prefHeight="26.0" prefWidth="105.0" text="Registrar" />
+   </children>
+</AnchorPane>
