@@ -11,5 +11,7 @@ module org.secureaccess.app.secureaccessfrontend {
     opens org.secureaccess.app.secureaccessfrontend.viewModels to javafx.graphics, javafx.fxml;
     opens org.secureaccess.app.secureaccessfrontend.controllers.eleccionControllers to javafx.fxml;
     opens org.secureaccess.app.secureaccessfrontend.controllers.loginsControllers to javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.profilesControllers to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.profilesControllers to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.menuControllers to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.registersControllers to javafx.fxml;
 }
