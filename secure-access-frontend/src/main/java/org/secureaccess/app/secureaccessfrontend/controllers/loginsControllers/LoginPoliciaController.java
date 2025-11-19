@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessbackend.servicios.AutenticacionDeServicio;
 import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuPoliciaController;
+import org.secureaccess.app.secureaccessfrontend.util.Alerta;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -38,7 +40,7 @@ public class LoginPoliciaController {
         String contraPolicia = clavePolicia.getText();
 
         if (usuarioPolicia.isEmpty() || contraPolicia.isEmpty()) {
-            mostrarAlerta("Campos vacíos", "Por favor, ingrese usuario y contraseña");
+            Alerta.mostrar("Campos vacíos", "Por favor, ingrese usuario y contraseña");
             return;
         }
 
@@ -54,13 +56,13 @@ public class LoginPoliciaController {
                             "Menú Policia", policia);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    mostrarAlerta("Error", "No se pudo cargar el menú");
+                    Alerta.mostrar("Error", "No se pudo cargar el menú");
                 }
             } else {
-                mostrarAlerta("Acceso Denegado", "Este usuario no tienes credenciales de un Policia");
+                Alerta.mostrar("Acceso Denegado", "Este usuario no tienes credenciales de un Policia");
             }
         } else {
-            mostrarAlerta("Error de Acceso", "Usuario o contraseña incorrectos");
+            Alerta.mostrar("Error de Acceso", "Usuario o contraseña incorrectos");
         }
     }
 
@@ -80,15 +82,6 @@ public class LoginPoliciaController {
         stage.setTitle(titulo);
         stage.setScene(escena);
         stage.show();
-    }
-
-    private void mostrarAlerta(String titulo, String mensaje) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(titulo);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-
     }
 }
 

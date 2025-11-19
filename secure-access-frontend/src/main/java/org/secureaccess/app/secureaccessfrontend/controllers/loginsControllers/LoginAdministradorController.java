@@ -7,12 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessbackend.servicios.AutenticacionDeServicio;
 import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuAdministradorController;
+import org.secureaccess.app.secureaccessfrontend.util.Alerta;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -39,7 +41,7 @@ public class LoginAdministradorController {
         String clave = claveUsuarioAdministrador.getText();
 
         if (usuario.isEmpty() || clave.isEmpty()) {
-            mostrarAlerta("Campos vacíos", "Por favor, ingrese usuario y contraseña");
+            Alerta.mostrar("Campos vacíos", "Por favor, ingrese usuario y contraseña");
             return;
         }
 
@@ -54,13 +56,13 @@ public class LoginAdministradorController {
                     cambioDeEscena(event, "/ui/menu/OpcionesDeMenuAdministradorView.fxml", "Menú Administrador", admin);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    mostrarAlerta("Error", "No se pudo cargar el menú");
+                    Alerta.mostrar("Error", "No se pudo cargar el menú");
                 }
             } else {
-                mostrarAlerta("Acceso Denegado", "Este usuario no tienes permisos de Administrador");
+                Alerta.mostrar("Acceso Denegado", "Este usuario no tienes permisos de Administrador");
             }
         } else {
-            mostrarAlerta("Error de Acceso", "Usuario o contraseña incorrectos");
+            Alerta.mostrar("Error de Acceso", "Usuario o contraseña incorrectos");
         }
 
     }
@@ -82,14 +84,4 @@ public class LoginAdministradorController {
         stage.setScene(escena);
         stage.show();
     }
-
-    private void mostrarAlerta(String titulo, String mensaje) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(titulo);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
-
 }

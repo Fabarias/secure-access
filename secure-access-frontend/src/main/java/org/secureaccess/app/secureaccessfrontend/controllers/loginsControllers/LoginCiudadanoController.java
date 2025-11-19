@@ -14,6 +14,7 @@ import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessbackend.servicios.AutenticacionDeServicio;
 import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuCiudadanoController;
 import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuPoliciaController;
+import org.secureaccess.app.secureaccessfrontend.util.Alerta;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -41,7 +42,7 @@ public class LoginCiudadanoController {
         String contraUsuario = claveCiudadano.getText();
 
         if (nombreUsuario.isEmpty() || contraUsuario.isEmpty()) {
-            mostrarAlerta("Campos vacíos", "Por favor ingrese usuario y contraseña");
+            Alerta.mostrar("Campos vacíos", "Por favor ingrese usuario y contraseña");
             return;
         }
 
@@ -58,14 +59,14 @@ public class LoginCiudadanoController {
                             "Menu Ciudadano", ciudadano);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    mostrarAlerta("Error", "No se pudo cargar el menu");
+                    Alerta.mostrar("Error", "No se pudo cargar el menu");
                 }
             } else {
-                mostrarAlerta("Acceso Denegado", "Usuario o contraseña incorrectos");
+                Alerta.mostrar("Acceso Denegado", "Usuario o contraseña incorrectos");
 
             }
         } else {
-            mostrarAlerta("Error de Acceso", "Usuario o contraseña incorrectos");
+            Alerta.mostrar("Error de Acceso", "Usuario o contraseña incorrectos");
         }
 
     }
@@ -92,14 +93,5 @@ public class LoginCiudadanoController {
         stage.setTitle(titulo);
         stage.setScene(escena);
         stage.show();
-    }
-
-    private void mostrarAlerta(String titulo, String mensaje) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(titulo);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-
     }
 }
