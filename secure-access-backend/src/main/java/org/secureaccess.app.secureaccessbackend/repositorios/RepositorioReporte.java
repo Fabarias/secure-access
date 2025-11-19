@@ -13,13 +13,13 @@ import java.util.List;
 public class RepositorioReporte {
 
     public boolean guardar(Reporte reporte) {
-        String sql = "INSERT INTO tablareportes (categoriaDelitoID, departamento, ciudadanoId, fechaDelito, estadoReporte, descripción) " +
+        String sql = "INSERT INTO tabla_reportes (categoriaDelitoID, departamento, ciudadanoId, fechaDelito, estadoReporte, descripción) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
         System.out.println("CategoriaID: " + reporte.getCategoriaDelitoId());
         System.out.println("Departamento: " + reporte.getDepartamento());
         System.out.println("CiudadanoID: " + reporte.getCiudadanoId());
-        System.out.println("Estado: " + reporte.getEstadoReporte());  // ← IMPORTANTE: debe ser "Espera"
+        System.out.println("Estado: " + reporte.getEstadoReporte());
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -43,7 +43,7 @@ public class RepositorioReporte {
     public List<Reporte> listarPorEstado(String estadoFiltro) {
 
         List<Reporte> lista = new ArrayList<>();
-        String sql = (estadoFiltro == null) ? "SELECT * FROM tablareportes" : "SELECT * FROM tablareportes WHERE estadoReporte = ?";
+        String sql = (estadoFiltro == null) ? "SELECT * FROM tabla_reportes" : "SELECT * FROM tablareportes WHERE estadoReporte = ?";
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
