@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="350.0" styleClass="custom-alert-box" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.components.CustomAlertController">
+    <children>
+        <Label fx:id="lblTitulo" styleClass="alert-title" text="Título de la Alerta" wrapText="true" />
+
+        <Label fx:id="lblMensaje" styleClass="alert-message" text="Este es el mensaje de detalle de la alerta." wrapText="true" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+                <Insets bottom="20.0" top="10.0" />
+            </VBox.margin>
+        </Label>
+
+        <HBox alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#cerrarAlerta" styleClass="button-alert" text="Aceptar" />
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
