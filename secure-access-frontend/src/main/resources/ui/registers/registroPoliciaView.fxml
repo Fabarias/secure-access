@@ -10,7 +10,7 @@
       <TextField fx:id="usuarioPolicia" layoutX="40.0" layoutY="245.0" />
       <PasswordField fx:id="clavePolicia" layoutX="40.0" layoutY="305.0" />
       <Button layoutX="50.0" layoutY="360.0" mnemonicParsing="false" onAction="#guardarPolicia" prefHeight="26.0" prefWidth="134.0" text="Registrar" />
-      <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" text="Regresar" />
+      <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#regresarAlMenuAdmin" text="Regresar" />
       <Label layoutX="40.0" layoutY="100.0" text="Nombre" />
       <Label layoutX="40.0" layoutY="160.0" text="Primer Apellido" />
       <Label layoutX="40.0" layoutY="220.0" text="Nombre de Usuario" />
