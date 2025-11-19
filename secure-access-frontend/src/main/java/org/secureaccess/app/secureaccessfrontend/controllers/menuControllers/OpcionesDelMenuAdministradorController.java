@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
+import org.secureaccess.app.secureaccessfrontend.controllers.profilesControllers.GestionDeUsuariosController;
 
 import java.io.IOException;
 
@@ -27,18 +28,29 @@ public class OpcionesDelMenuAdministradorController {
 
     @FXML
     private void irAGestionUsuarios(ActionEvent event) throws IOException {
-        cambioDeEscena(event, "/ui/menu/profiles/gestionUsuariosView.fxml",
-                "Gestión de Usuarios");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/menu/profiles/gestionDeUsuariosView.fxml"));
+        Parent root = loader.load();
+
+        GestionDeUsuariosController controller = loader.getController();
+        controller.setAdministradorActual(this.administradorActual);
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Gestión de Usuarios");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void irAVerInformacion(ActionEvent event) throws IOException {
-        cambioDeEscena(event, "/ui/menu/listadoDelincuentes/listadoDelincuentesView.fxml",
+    public void irAVerInformacion(ActionEvent event) throws IOException {
+        cambioDeEscena(event, "/ui/menu/listasDelincuentes/listadoAdminDelincuentesView.fxml",
                 "Información del Sistema");
     }
 
-
     public void iniciarDatos(Usuario administrador) {
+
+        this.administradorActual = administrador;
+
         if (administrador != null) {
             labelNombreAdmin.setText("Administrador " + administrador.getNombre() + " " + administrador.getApellido());
         }
