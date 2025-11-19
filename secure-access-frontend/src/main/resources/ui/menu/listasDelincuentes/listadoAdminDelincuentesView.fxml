@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers.ListadoAdminDelincuentesController">
+    <children>
+        <Label layoutX="325.0" layoutY="27.0" text="Observatorio de Delincuentes (Administración)">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <Button layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#regresar" text="Regresar al Menú" />
+
+        <HBox layoutX="14.0" layoutY="87.0" prefHeight="37.0" prefWidth="600.0" spacing="10.0">
+            <children>
+                <TextField fx:id="filtroNombre" prefHeight="26.0" prefWidth="150.0" promptText="Buscar por Nombre" />
+                <TextField fx:id="filtroApellidos" prefHeight="26.0" prefWidth="150.0" promptText="Buscar por Apellidos" />
+                <ComboBox fx:id="comboDepartamentos" prefHeight="26.0" prefWidth="170.0" promptText="Filtrar por Departamento" visibleRowCount="7" />
+            </children>
+        </HBox>
+        <Button layoutX="620.0" layoutY="87.0" mnemonicParsing="false" onAction="#onClickBotonBuscar" prefHeight="25.0" prefWidth="100.0" text="Buscar" />
+
+        <TableView fx:id="tablaDelincuentes" layoutX="14.0" layoutY="134.0" prefHeight="488.0" prefWidth="920.0">
+            <columns>
+                <TableColumn fx:id="colNombre" prefWidth="120.0" text="Nombre" />
+                <TableColumn fx:id="colApellidos" prefWidth="120.0" text="Apellidos" />
+                <TableColumn fx:id="colDelito" prefWidth="150.0" text="Delito Principal" />
+                <TableColumn fx:id="colRecompensa" prefWidth="100.0" text="Recompensa" />
+
+                <TableColumn fx:id="colFechaRegistro" prefWidth="178.39999389648438" text="Fecha Registro" />
+                <TableColumn fx:id="colUsuarioRegistro" prefWidth="250.0" text="Registrado Por" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
