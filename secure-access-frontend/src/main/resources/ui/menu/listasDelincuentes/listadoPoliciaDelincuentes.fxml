@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers.listadoDelincuentesController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers.ListadoPoliciaDelincuentesController">
    <children>
       <Label layoutX="255.0" layoutY="27.0" text="Lo más buscados" />
       <HBox layoutX="14.0" layoutY="87.0" prefHeight="37.0" prefWidth="421.0">
