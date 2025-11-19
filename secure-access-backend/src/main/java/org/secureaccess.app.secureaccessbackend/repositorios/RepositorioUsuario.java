@@ -12,6 +12,25 @@ import java.util.Optional;
 
 public class RepositorioUsuario {
 
+    public Optional<Usuario> buscarPorId(int id) {
+        String sql = "SELECT * FROM usuarios WHERE usuario_id = ?";
+
+        try (Connection connection = DataBaseControl.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(mapearUsuario(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error buscando usuario por ID: " + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
     public Optional<Usuario> buscarPorNombreUsuario(String nombreUsuario) {
 
         String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";

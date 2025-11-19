@@ -75,6 +75,10 @@ public class Usuario {
         return estado;
     }
 
+    public String getEstadoString() {
+        return (getEstado() != 1) ? "INACTIVO" : "ACTIVO";
+    }
+
     public void setEstado(int estado) {
         this.estado = estado;
     }
