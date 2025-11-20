@@ -1,5 +1,6 @@
 package org.secureaccess.app.secureaccessbackend.servicios;
 
+import org.secureaccess.app.secureaccessbackend.modelos.CategoriaDelito;
 import org.secureaccess.app.secureaccessbackend.modelos.Reporte;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioReporte;
@@ -40,6 +41,10 @@ public class ReporteServicio {
 
         System.out.println("Reporte guardado con éxito: " + exito);
         return exito;
+    }
+
+    public List<CategoriaDelito> obtenerCategoriasDeDelito() {
+        return repositorioReporte.listarCategorias();
     }
 
     public List<Reporte> obtenerReportesPendientes(Usuario usuarioSolicitud) {
