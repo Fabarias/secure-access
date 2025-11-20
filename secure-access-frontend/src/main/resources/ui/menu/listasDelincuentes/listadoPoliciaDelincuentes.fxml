@@ -34,7 +34,7 @@
 
                         <Region HBox.hgrow="ALWAYS" />
 
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" styleClass="button-police" text="Buscar" />
+                        <Button mnemonicParsing="false" onAction="#buscarDelicuentes" prefHeight="35.0" prefWidth="120.0" styleClass="button-police" text="Buscar" />
                     </children>
                 </HBox>
             </children>
