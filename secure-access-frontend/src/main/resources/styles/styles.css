@@ -1,23 +1,36 @@
+/* =======================================================
+   1. CONFIGURACIÓN GLOBAL Y PALETA DE COLORES
+   ======================================================= */
 .root {
-    -color-fondo: #0A1A2F;
-    -color-bloque: rgba(17, 34, 64, 0.6);
+    -color-fondo: #0A1A2F;          /* Azul Oscuro Profundo */
+    -color-bloque: rgba(17, 34, 64, 0.6); /* Fondo de cajas semitransparente */
     -color-borde-sutil: rgba(255, 255, 255, 0.08);
 
+    /* Colores de Texto */
     -color-texto-blanco: #E6F1FF;
     -color-texto-gris: #8892B0;
 
-    -color-ciudadano: #2563EB;
-    -color-policia: #10B981;
-    -color-advertencia: #F2C94C;
+    /* Colores de Roles */
+    -color-ciudadano: #2563EB;      /* Azul */
+    -color-policia: #10B981;        /* Verde */
+    -color-advertencia: #F2C94C;    /* Amarillo (Admin) */
 
+    /* Tipografía */
     -fx-font-family: "Roboto", "Segoe UI", sans-serif;
     -fx-font-size: 14px;
 
+    /* Fondo General */
     -fx-background-color: -color-fondo;
 }
 
-.label { -fx-text-fill: -color-texto-gris; }
+/* =======================================================
+   2. ESTILOS DE TEXTO (LABELS)
+   ======================================================= */
+.label {
+    -fx-text-fill: -color-texto-gris;
+}
 
+/* Título Grande en la parte superior */
 .label.title-header {
     -fx-text-fill: -color-texto-blanco;
     -fx-font-size: 26px;
@@ -26,6 +39,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 2);
 }
 
+/* Título de Rol dentro de las tarjetas */
 .label.role-title {
     -fx-text-fill: -color-texto-blanco;
     -fx-font-size: 20px;
@@ -33,11 +47,17 @@
     -fx-padding: 5 0 10 0;
 }
 
-
+/* =======================================================
+   3. IMÁGENES Y EFECTOS
+   ======================================================= */
+/* Truco: Sombra interna blanca para volver blancos los íconos negros */
 .image-view {
     -fx-effect: innershadow(gaussian, white, 50, 1.0, 0, 0);
 }
 
+/* =======================================================
+   4. CONTENEDORES (TARJETAS DE ROL)
+   ======================================================= */
 .role-box {
     -fx-background-color: -color-bloque;
     -fx-background-radius: 12px;
@@ -48,7 +68,9 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 15, 0, 0, 5);
 }
 
-
+/* =======================================================
+   5. BOTONES (ESTILOS GENERALES Y POR ROL)
+   ======================================================= */
 .button {
     -fx-background-radius: 6px;
     -fx-cursor: hand;
@@ -57,33 +79,34 @@
     -fx-font-size: 14px;
 }
 
-
+/* Botón Azul (Ciudadano) */
 .button-citizen {
     -fx-background-color: -color-ciudadano;
-    -fx-text-fill: black;
+    -fx-text-fill: black; /* Nota: Texto negro sobre azul */
 }
 .button-citizen:hover {
     -fx-background-color: derive(-color-ciudadano, 10%);
 }
 
-
+/* Botón Verde (Policía) */
 .button-police {
     -fx-background-color: -color-policia;
-    -fx-text-fill: black;
+    -fx-text-fill: black; /* Nota: Texto negro sobre verde */
 }
 .button-police:hover {
     -fx-background-color: derive(-color-policia, 10%);
 }
 
-
+/* Botón Amarillo (Administrador) */
 .button-admin {
     -fx-background-color: -color-advertencia;
-    -fx-text-fill: black;
+    -fx-text-fill: black; /* Nota: Texto negro sobre amarillo */
 }
 .button-admin:hover {
     -fx-background-color: derive(-color-advertencia, 10%);
 }
 
+/* Botón Secundario (Outline / Regresar) */
 .button-secondary {
     -fx-background-color: transparent;
     -fx-border-color: rgba(255, 255, 255, 0.2);
@@ -99,6 +122,9 @@
     -fx-background-color: rgba(255, 255, 255, 0.05);
 }
 
+/* =======================================================
+   6. CAMPOS DE TEXTO (INPUTS GENERALES)
+   ======================================================= */
 .text-field, .password-field {
     -fx-background-color: rgba(255, 255, 255, 0.07);
     -fx-text-fill: white;
@@ -108,46 +134,177 @@
     -fx-border-color: -color-borde-sutil;
 }
 .text-field:focused, .password-field:focused {
-    -fx-border-color: -color-advertencia;
+    -fx-border-color: -color-advertencia; /* Amarillo al enfocar por defecto */
     -fx-background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* =======================================================
+   7. ALERTAS PERSONALIZADAS
+   ======================================================= */
+.custom-alert-box {
+    -fx-background-color: #112240;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 30, 0.5, 0, 10);
+}
 
-   .custom-alert-box {
+.alert-title {
+    -fx-text-fill: -color-texto-blanco;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
 
-       -fx-background-color: #112240;
+.alert-message {
+    -fx-text-fill: -color-texto-gris;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
 
-       -fx-background-radius: 10px;
-       -fx-border-radius: 10px;
-       -fx-border-color: rgba(255, 255, 255, 0.1);
-       -fx-border-width: 1px;
+.button-alert {
+    -fx-background-color: -color-ciudadano;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 8 25;
+    -fx-cursor: hand;
+}
+.button-alert:hover {
+    -fx-background-color: derive(-color-ciudadano, 15%);
+}
 
-       -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 30, 0.5, 0, 10);
-   }
+/* =======================================================
+   8. COMPONENTES ESPECÍFICOS DE POLICÍA
+   ======================================================= */
 
-   .alert-title {
-       -fx-text-fill: -color-texto-blanco;
-       -fx-font-size: 18px;
-       -fx-font-weight: bold;
-       -fx-alignment: CENTER;
-   }
+/* Input de Policía (Enfoque Verde) */
+.police-input {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-text-fill: -color-texto-blanco;
+    -fx-prompt-text-fill: derive(-color-texto-gris, -20%);
+    -fx-background-radius: 4px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: -color-borde-sutil;
+}
 
-   .alert-message {
-       -fx-text-fill: -color-texto-gris;
-       -fx-font-size: 14px;
-       -fx-alignment: CENTER;
-       -fx-text-alignment: CENTER;
-   }
+.police-input:focused {
+    -fx-border-color: -color-policia; /* Verde al enfocar */
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
 
-   .button-alert {
-       -fx-background-color: -color-ciudadano;
-       -fx-text-fill: white;
-       -fx-font-weight: bold;
-       -fx-background-radius: 5px;
-       -fx-padding: 8 25;
-       -fx-cursor: hand;
-   }
+/* ComboBox de Policía */
+.police-combo {
 
-   .button-alert:hover {
-       -fx-background-color: derive(-color-ciudadano, 15%);
-   }
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 4px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: -color-borde-sutil;
+    -fx-padding: 0 0 0 10;
+}
+
+.police-combo:hover, .police-combo:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: -color-policia;
+}
+
+.police-combo .cell {
+    -fx-text-fill: -color-texto-blanco;
+    -fx-background-color: transparent;
+}
+
+.police-combo .arrow, .police-combo .arrow-button {
+    -fx-background-color: transparent;
+    -fx-mark-color: -color-texto-gris;
+}
+
+/* Lista desplegable del ComboBox */
+.police-combo .list-view {
+    -fx-background-color: -color-fondo;
+    -fx-border-color: -color-borde-sutil;
+    -fx-border-width: 1px;
+}
+
+.police-combo .list-cell {
+    -fx-background-color: transparent !important;
+    -fx-text-fill: -color-texto-blanco;
+    -fx-padding: 8 10 8 10;
+}
+
+.police-combo .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 8 0 8;
+}
+
+.police-combo .arrow {
+
+    -fx-background-color: -color-policia;
+    -fx-padding: 3 6 3 6;
+    -fx-shape: "M 0 0 L 4 4 L 8 0 Z";
+
+    -fx-scale-shape: true;
+}
+
+.police-combo .list-cell:filled:hover,
+.police-combo .list-cell:filled:selected {
+    -fx-background-color: -color-policia;
+    -fx-text-fill: white;
+}
+
+/* Tabla de Policía */
+.police-table {
+    -fx-background-color: transparent;
+    -fx-border-color: -color-borde-sutil;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+/* Encabezados de Tabla */
+.police-table .column-header-background {
+    -fx-background-color: -color-bloque;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: -color-policia; /* Línea verde */
+}
+
+.police-table .column-header {
+    -fx-background-color: transparent;
+}
+
+.police-table .column-header .label {
+    -fx-text-fill: -color-policia;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* Celdas de Tabla */
+.police-table .table-row-cell {
+    -fx-background-color: -color-fondo;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(255, 255, 255, 0.02);
+}
+
+.police-table .table-cell {
+    -fx-text-fill: -color-texto-blanco;
+    -fx-alignment: CENTER;
+}
+
+.police-table .table-row-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+}
+
+.police-table:focused .table-row-cell:selected {
+    -fx-background-color: derive(-color-policia, -40%); /* Fondo selección verde oscuro */
+}
+
+.police-table .placeholder .label {
+    -fx-text-fill: -color-texto-gris;
+}
+
+/* Encabezado Genérico (Repetido para asegurar compatibilidad) */
+.title-header {
+    -fx-text-fill: -color-texto-blanco;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
