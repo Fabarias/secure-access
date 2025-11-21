@@ -3,14 +3,12 @@ package org.secureaccess.app.secureaccessbackend.modelos;
 public class CategoriaDelito {
 
     private int categoriaId;
-    private String nombreDelito;
     private String tipoDeUrgencia;
 
     public CategoriaDelito() {}
 
-    public CategoriaDelito(int categoriaId, String nombreDelito, String tipoDeUrgencia) {
+    public CategoriaDelito(int categoriaId, String tipoDeUrgencia) {
         this.categoriaId = categoriaId;
-        this.nombreDelito = nombreDelito;
         this.tipoDeUrgencia = tipoDeUrgencia;
     }
 
@@ -20,14 +18,6 @@ public class CategoriaDelito {
 
     public void setCategoriaId(int categoriaId) {
         this.categoriaId = categoriaId;
-    }
-
-    public String getNombreDelito() {
-        return nombreDelito;
-    }
-
-    public void setNombreDelito(String nombreDelito) {
-        this.nombreDelito = nombreDelito;
     }
 
     public String getTipoDeUrgencia() {
@@ -42,5 +32,10 @@ public class CategoriaDelito {
         return tipoDeUrgencia != null &&
                 (tipoDeUrgencia.equalsIgnoreCase("ALTA") ||
                         tipoDeUrgencia.equalsIgnoreCase("URGENTE"));
+    }
+
+    @Override
+    public String toString() {
+        return tipoDeUrgencia;
     }
 }
