@@ -66,6 +66,9 @@ public class RepositorioDelincuente {
         Timestamp timestamp = resultSet.getTimestamp("fecha_registro");
         LocalDateTime fechaRegistro = (timestamp != null) ? timestamp.toLocalDateTime() : null;
 
+        int reporteIdTemp = resultSet.getInt("reporte_origen_id");
+        Integer reporteOrigenId = resultSet.wasNull() ? null : reporteIdTemp;
+
         return new Delincuente(
                 id,
                 nombre,
@@ -73,6 +76,7 @@ public class RepositorioDelincuente {
                 segundoApellido,
                 lugarId,
                 usuarioRegistroId,
+                reporteOrigenId,
                 fechaRegistro,
                 recompensa
         );
@@ -96,8 +100,9 @@ public class RepositorioDelincuente {
 
     public boolean guardar(Delincuente delincuente, Usuario usuarioEncargado) {
         String sql = "INSERT INTO delincuentes (delincuente_primer_nombre, delincuente_primer_apellido, " +
-                "delincuente_segundo_apellido, lugar_de_requisitoria_id, usuario_registro_id, recompensa, fecha_registro) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "delincuente_segundo_apellido, lugar_de_requisitoria_id, usuario_registro_id," +
+                " recompensa, fecha_registro, reporte_origen_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -111,6 +116,8 @@ public class RepositorioDelincuente {
 
              LocalDateTime fecha = delincuente.getFechaRegistro() != null ? delincuente.getFechaRegistro() : LocalDateTime.now();
              preparedStatement.setTimestamp(7, Timestamp.valueOf(fecha));
+
+             preparedStatement.setObject(8, delincuente.getReporteOrigenId(), Types.INTEGER);
 
              return preparedStatement.executeUpdate() > 0;
 

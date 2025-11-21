@@ -10,6 +10,7 @@ public class Delincuente {
     private String delincuenteSegundoApellido;
     private Integer lugarDeRequisitoriaId;
     private int usuarioRegistroId;
+    private Integer reporteOrigenId;
     private LocalDateTime fechaRegistro;
     private double recompensa;
 
@@ -21,6 +22,7 @@ public class Delincuente {
                        String segundoApellido,
                        int lugarRequisitoriaId,
                        int usuarioRegistroId,
+                       Integer reporteOrigenId,
                        double recompensa) {
 
             this.delincuentePrimerNombre = primerNombre;
@@ -28,6 +30,7 @@ public class Delincuente {
             this.delincuenteSegundoApellido = segundoApellido;
             this.lugarDeRequisitoriaId = lugarRequisitoriaId;
             this.usuarioRegistroId = usuarioRegistroId;
+            this.reporteOrigenId = reporteOrigenId;
             this.recompensa = recompensa;
         }
 
@@ -37,6 +40,7 @@ public class Delincuente {
                        String segundoApellido,
                        int lugarRequisitoriaId,
                        int usuarioRegistroId,
+                       Integer reporteOrigenId,
                        LocalDateTime fechaRegistro,
                        double recompensa) {
         this.delincuenteId = delincuenteId;
@@ -45,6 +49,7 @@ public class Delincuente {
         this.delincuenteSegundoApellido = segundoApellido;
         this.lugarDeRequisitoriaId = lugarRequisitoriaId;
         this.usuarioRegistroId = usuarioRegistroId;
+        this.reporteOrigenId = reporteOrigenId;
         this.fechaRegistro = fechaRegistro;
         this.recompensa = recompensa;
     }
@@ -103,6 +108,14 @@ public class Delincuente {
 
     public void setUsuarioRegistroId(int usuarioRegistroId) {
         this.usuarioRegistroId = usuarioRegistroId;
+    }
+
+    public Integer getReporteOrigenId() {
+        return reporteOrigenId;
+    }
+
+    public void setReporteOrigenId(Integer reporteOrigenId) {
+        this.reporteOrigenId = reporteOrigenId;
     }
 
     public LocalDateTime getFechaRegistro() {
