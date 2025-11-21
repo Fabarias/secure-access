@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.registersControllers.RegistroReporteController">
 
@@ -44,7 +43,7 @@
                         <VBox spacing="5.0">
                            <Label text="Departamento del Suceso" style="-fx-font-weight: bold;" />
 
-                           <ComboBox fx:id="comboDepartamento" maxWidth="Infinity" prefHeight="40.0" promptText="Seleccione el departamento" styleClass="citizen-combo" />
+                           <ComboBox fx:id="comboDepartamento" maxWidth="Infinity" prefHeight="40.0" promptText="Seleccione el departamento" styleClass="citizen-combo" visibleRowCount="3"/>
                         </VBox>
 
                         <VBox spacing="5.0">

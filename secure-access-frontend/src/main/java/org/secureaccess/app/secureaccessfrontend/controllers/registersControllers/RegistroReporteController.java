@@ -47,13 +47,11 @@ public class RegistroReporteController implements Initializable {
 
         cargarDepartamentos();
         cargarCategoriasGravedad();
-
     }
 
     private void cargarDepartamentos() {
 
         comboDepartamento.getItems().addAll(repoRequisitoria.listarTodos());
-
         comboDepartamento.setConverter(new StringConverter<>() {
             @Override
             public String toString(LugarRequisitoria lugarRequisitoria) {

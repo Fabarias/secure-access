@@ -362,7 +362,7 @@
 
 .citizen-combo .arrow {
     -fx-background-color: -color-ciudadano; /* Flecha Azul */
-    -fx-padding: 9 6 9 6; /* Tamaño grande */
+    -fx-padding: 3 6 3 6; /* Tamaño grande */
     -fx-shape: "M 0 0 L 4 4 L 8 0 Z";
 
     -fx-scale-shape: true;
@@ -385,4 +385,36 @@
 .citizen-combo .list-view .list-cell:filled:selected {
     -fx-background-color: -color-ciudadano; /* Selección Azul */
     -fx-text-fill: white;
+}
+
+/* =======================================================
+   CORRECCIÓN TEXTAREA (Fondo Blanco)
+   ======================================================= */
+
+/* 1. Aseguramos que el fondo base del TextArea sea el correcto */
+.citizen-input.text-area {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-text-fill: -color-texto-blanco; /* Asegura que el texto sea blanco */
+}
+
+/* 2. EL TRUCO: Hacemos transparentes las capas internas (viewport y content) */
+.citizen-input.text-area .viewport,
+.citizen-input.text-area .content {
+    -fx-background-color: transparent !important;
+}
+
+/* 3. Aseguramos que el color del texto se aplique al nodo de texto interno */
+.citizen-input.text-area .text {
+    -fx-fill: -color-texto-blanco;
+}
+
+/* 4. Ajuste del Prompt Text (el texto de ayuda gris) */
+.citizen-input.text-area .prompt-text {
+    -fx-fill: derive(-color-texto-gris, -20%);
+}
+
+/* 5. Estado Enfocado (Borde Azul) */
+.citizen-input.text-area:focused {
+    -fx-border-color: -color-ciudadano;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
 }

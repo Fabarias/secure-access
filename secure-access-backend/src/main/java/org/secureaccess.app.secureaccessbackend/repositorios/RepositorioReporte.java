@@ -15,7 +15,7 @@ public class RepositorioReporte {
     public List<CategoriaDelito> listarCategorias() {
 
         List<CategoriaDelito> categorias = new ArrayList<>();
-        String sql = "SELECT categoria_id, tipo_de_urgencia FROM categoria_delito";
+        String sql = "SELECT categoria_id, tipo_de_urgencia FROM categoria_delitos";
 
         try (Connection connection = DataBaseControl.getConnection();
              Statement statement = connection.createStatement();
