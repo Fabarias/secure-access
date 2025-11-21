@@ -6,6 +6,7 @@ public class Reporte {
 
     private int reporteId;
     private int categoriaDelitoId;
+    private int delitoId;
     private String departamento;
     private int ciudadanoId;
     private LocalDateTime fechaDelito;
@@ -15,16 +16,18 @@ public class Reporte {
     public Reporte() {}
 
     public Reporte(int categoriaDelitoId,
+                   int delitoId,
                    String departamento,
                    int ciudadanoId,
                    LocalDateTime localDateTime,
                    String descripcion) {
         this.categoriaDelitoId = categoriaDelitoId;
+        this.delitoId = delitoId;
         this.departamento = departamento;
         this.ciudadanoId = ciudadanoId;
         this.fechaDelito = localDateTime;
         this.descripcion = descripcion;
-        this.estadoReporte = "Pendiente";
+        this.estadoReporte = "Espera";
     }
 
     public Reporte(int reporteId,
