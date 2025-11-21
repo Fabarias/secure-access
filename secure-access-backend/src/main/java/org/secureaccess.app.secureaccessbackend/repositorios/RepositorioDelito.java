@@ -1,14 +1,86 @@
 package org.secureaccess.app.secureaccessbackend.repositorios;
 
 import org.secureaccess.app.secureaccessbackend.config.DataBaseControl;
+import org.secureaccess.app.secureaccessbackend.modelos.Delito;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Optional;
+import java.sql.*;
+import java.util.*;
 
 public class RepositorioDelito {
+
+    public Optional<Integer> detectarDelitoPorPalabrasClave(String descripcion) {
+        if (descripcion == null || descripcion.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String sql = "SELECT palabra, delito_id FROM palabras_clave_delito";
+        String descripcionNormalizada = descripcion.toLowerCase();
+
+        try (Connection connection = DataBaseControl.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                String palabraClave = resultSet.getString("palabra").toLowerCase();
+
+                if (descripcionNormalizada.contains(palabraClave)) {
+                    return Optional.of(resultSet.getInt("delito_id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Delito> buscarPorId(int delitoId) {
+        String sql = "SELECT * FROM delitos WHERE delito_id = ?";
+
+        try (Connection connection = DataBaseControl.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+             preparedStatement.setInt(1, delitoId);
+
+             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                 if (resultSet.next()) {
+                     return Optional.of(new Delito(
+                             resultSet.getInt("delito_id"),
+                             resultSet.getString("delito_nombre"),
+                             resultSet.getInt("activo")
+                     ));
+                 }
+             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    public List<Delito> listarArchivos() {
+
+        List<Delito> lista = new ArrayList<>();
+        String sql = "SELECT * FROM delitos WHERE activo = 1";
+
+        try (Connection connection = DataBaseControl.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+             while (resultSet.next()) {
+
+                 Delito delito = new Delito(
+                         resultSet.getInt("delito_id"),
+                         resultSet.getString("delito_nombre"),
+                         resultSet.getInt("activo")
+                 );
+                 lista.add(delito);
+             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
 
     public Optional<String> buscarNombrePorDelincuenteId(int delincuenteId) {
 

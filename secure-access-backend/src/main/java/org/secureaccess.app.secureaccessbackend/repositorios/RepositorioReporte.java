@@ -8,7 +8,6 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class RepositorioReporte {
 
@@ -16,7 +15,7 @@ public class RepositorioReporte {
     public List<CategoriaDelito> listarCategorias() {
 
         List<CategoriaDelito> categorias = new ArrayList<>();
-        String sql = "SELECT * FROM categoria_delito";
+        String sql = "SELECT categoria_id, tipo_de_urgencia FROM categoria_delito";
 
         try (Connection connection = DataBaseControl.getConnection();
              Statement statement = connection.createStatement();
@@ -25,7 +24,6 @@ public class RepositorioReporte {
             while (resultSet.next()) {
                 categorias.add(new CategoriaDelito(
                         resultSet.getInt("categoria_id"),
-                        resultSet.getString("nombre_delito"),
                         resultSet.getString("tipo_de_urgencia")
                 ));
             }
@@ -36,8 +34,8 @@ public class RepositorioReporte {
     }
 
     public boolean guardar(Reporte reporte) {
-        String sql = "INSERT INTO tabla_reportes (categoriaDelitoID, departamento, ciudadanoId, fechaDelito, estadoReporte, descripción) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reportes (categoria_delito_id, departamento, ciudadano_id, fecha_delito, estado_reporte, descripcion) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
