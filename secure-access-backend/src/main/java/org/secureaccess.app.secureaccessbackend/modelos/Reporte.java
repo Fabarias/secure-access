@@ -32,6 +32,7 @@ public class Reporte {
 
     public Reporte(int reporteId,
                    int categoriaDelitoId,
+                   int delitoId,
                    String departamento,
                    int ciudadanoId,
                    LocalDateTime fechaDelito,
@@ -39,6 +40,7 @@ public class Reporte {
                    String descripcion) {
         this.reporteId = reporteId;
         this.categoriaDelitoId = categoriaDelitoId;
+        this.delitoId = delitoId;
         this.departamento = departamento;
         this.ciudadanoId = ciudadanoId;
         this.fechaDelito = fechaDelito;
@@ -60,6 +62,14 @@ public class Reporte {
 
     public void setCategoriaDelitoId(int categoriaDelitoId) {
         this.categoriaDelitoId = categoriaDelitoId;
+    }
+
+    public int getDelitoId() {
+        return delitoId;
+    }
+
+    public void setDelitoId(int delitoId) {
+        this.delitoId = delitoId;
     }
 
     public String getDepartamento() {

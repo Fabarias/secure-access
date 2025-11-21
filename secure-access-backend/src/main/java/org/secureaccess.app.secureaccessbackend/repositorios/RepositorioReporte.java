@@ -34,23 +34,30 @@ public class RepositorioReporte {
     }
 
     public boolean guardar(Reporte reporte) {
-        String sql = "INSERT INTO reportes (categoria_delito_id, departamento, ciudadano_id, fecha_delito, estado_reporte, descripcion) " +
+        String sql = "INSERT INTO reportes (delito_id" +
+                ", categoria_delito_id" +
+                ", departamento" +
+                ", ciudadano_id" +
+                ", fecha_delito" +
+                ", estado_reporte" +
+                ", descripcion) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, reporte.getCategoriaDelitoId());
-            preparedStatement.setString(2, reporte.getDepartamento());
-            preparedStatement.setInt(3, reporte.getCiudadanoId());
+            preparedStatement.setInt(1, reporte.getDelitoId());
+            preparedStatement.setInt(2, reporte.getCategoriaDelitoId());
+            preparedStatement.setString(3, reporte.getDepartamento());
+            preparedStatement.setInt(4, reporte.getCiudadanoId());
 
             LocalDateTime fecha = reporte.getFechaDelito() != null ? reporte.getFechaDelito() : LocalDateTime.now();
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(fecha));
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(fecha));
 
             String estado = reporte.getEstadoReporte() != null ? reporte.getEstadoReporte() : "Espera";
-            preparedStatement.setString(5, estado);
+            preparedStatement.setString(6, estado);
 
-            preparedStatement.setString(6, reporte.getDescripcion());
+            preparedStatement.setString(7, reporte.getDescripcion());
 
             return preparedStatement.executeUpdate() > 0;
 
@@ -127,12 +134,13 @@ public class RepositorioReporte {
         LocalDateTime fecha = (timestamp != null) ? timestamp.toLocalDateTime() : null;
 
         return new Reporte(
-                resultSet.getInt("reporteID"),
-                resultSet.getInt("categoriaDelitoID"),
+                resultSet.getInt("reporte_id"),
+                resultSet.getInt("delito_id"),
+                resultSet.getInt("categoria_delito_id"),
                 resultSet.getString("departamento"),
-                resultSet.getInt("ciudadanoId"),
+                resultSet.getInt("ciudadano_id"),
                 fecha,
-                resultSet.getString("estadoReporte"),
+                resultSet.getString("estado_reporte"),
                 resultSet.getString("descripcion")
         );
     }
