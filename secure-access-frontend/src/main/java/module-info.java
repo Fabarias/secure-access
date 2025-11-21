@@ -5,6 +5,7 @@ module org.secureaccess.app.secureaccessfrontend {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.secureaccess.app.secureaccessbackend;
+    requires java.sql;
 
     opens org.secureaccess.app.secureaccessfrontend to javafx.graphics, javafx.fxml;
     opens org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers to javafx.fxml;
