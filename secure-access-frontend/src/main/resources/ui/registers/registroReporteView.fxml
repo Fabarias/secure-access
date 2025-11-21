@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="434.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.registers.RegistroReporteView">
+   <children>
+      <ComboBox layoutX="14.0" layoutY="171.0" prefWidth="150.0" promptText="Nivel de Gravedad" />
+      <Label layoutX="14.0" layoutY="217.0" prefHeight="18.0" prefWidth="66.0" text="Descripción" />
+      <Label layoutX="14.0" layoutY="70.0" prefHeight="18.0" prefWidth="79.0" text="Departamento" />
+      <Label layoutX="264.0" layoutY="169.0" />
+      <ComboBox layoutX="14.0" layoutY="96.0" prefHeight="26.0" prefWidth="182.0" promptText="Ingresar un Departamento" />
+      <Label layoutX="14.0" layoutY="33.0" prefHeight="18.0" prefWidth="174.0" text="Panel para Registro de Reportes" />
+      <Label layoutX="14.0" layoutY="141.0" prefHeight="18.0" prefWidth="135.0" text="Gravedad de la situación" />
+      <TextArea layoutX="14.0" layoutY="237.0" prefHeight="135.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
