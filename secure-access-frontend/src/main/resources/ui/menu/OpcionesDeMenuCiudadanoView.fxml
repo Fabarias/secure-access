@@ -8,7 +8,7 @@
       <Label layoutX="325.0" layoutY="82.0" text="¡Bienvenido a SecureAccess!" />
       <HBox layoutX="90.0" layoutY="212.0" prefHeight="100.0" prefWidth="620.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="220.0" text="Crear un reporte" />
+            <Button mnemonicParsing="false" onAction="#irACrearReporte" prefHeight="100.0" prefWidth="220.0" text="Crear un reporte" />
             <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="220.0" text="Ver historial de reportes" textOverrun="CLIP" />
             <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="220.0" text="Ver listado de delincuentes" />
          </children>
