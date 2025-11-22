@@ -418,3 +418,22 @@
     -fx-border-color: -color-ciudadano;
     -fx-background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* =======================================================
+   10. ESTILOS PARA MENÚS PRINCIPALES (DASHBOARDS)
+   ======================================================= */
+
+/* Contenedor de los botones del menú (para darles aire) */
+.menu-buttons-box {
+    -fx-padding: 20 0 0 0;
+    -fx-spacing: 15; /* Espacio vertical entre botones */
+    -fx-alignment: CENTER;
+}
+
+/* Ajuste para que los botones del menú sean anchos y uniformes */
+.menu-button-wide {
+    -fx-pref-width: 280px;
+    -fx-pref-height: 45px;
+    -fx-font-size: 15px;
+    -fx-alignment: CENTER;
+}
