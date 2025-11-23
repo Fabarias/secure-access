@@ -17,7 +17,6 @@ public class OpcionesDelMenuPoliciaController {
 
     @FXML
     private Label labelNombrePolicia;
-
     private Usuario policiaActual;
 
     public void iniciarDatos(Usuario policia) {
@@ -28,11 +27,26 @@ public class OpcionesDelMenuPoliciaController {
     }
 
     @FXML
+    private void cerrarSesion(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/selection/eleccionView.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("SecureAccess - Inicio");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void irAListadoDelincuentes(ActionEvent event) throws IOException {
         cambiarEscena(event, "/ui/menu/listasDelincuentes/listadoPoliciaDelincuentes.fxml", "Listado de Buscados - Policía");
     }
 
-    private void cambiarEscena(ActionEvent event, String fxmlPath, String titulo) throws IOException {
+    private void cambiarEscena(ActionEvent event,
+                               String fxmlPath,
+                               String titulo) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         Parent root = loader.load();
 

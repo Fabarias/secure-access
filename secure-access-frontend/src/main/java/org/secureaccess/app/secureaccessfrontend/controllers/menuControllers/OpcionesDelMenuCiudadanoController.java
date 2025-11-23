@@ -62,6 +62,7 @@ public class OpcionesDelMenuCiudadanoController {
     private void cambiarEscena(ActionEvent event, String fxmlPath, String titulo) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         Parent root = loader.load();
+
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(titulo);
