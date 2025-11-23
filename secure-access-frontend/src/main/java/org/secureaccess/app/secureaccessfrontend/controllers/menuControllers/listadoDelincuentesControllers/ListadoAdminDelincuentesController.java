@@ -21,6 +21,7 @@ import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioDelincue
 import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioDelito;
 import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioLugarRequisitoria;
 import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioUsuario;
+import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuAdministradorController;
 import org.secureaccess.app.secureaccessfrontend.viewModels.DelincuenteAdminView;
 
 
@@ -47,8 +48,6 @@ public class ListadoAdminDelincuentesController implements Initializable{
     @FXML private TableColumn<DelincuenteAdminView, String> colFechaRegistro;
     @FXML private TableColumn<DelincuenteAdminView, String> colUsuarioRegistro;
 
-    private ObservableList<DelincuenteAdminView> listaObservable;
-
     private final RepositorioDelincuente repoDelincuente = new RepositorioDelincuente();
     private final RepositorioUsuario repoUsuario = new RepositorioUsuario();
     private final RepositorioDelito repoDelito = new RepositorioDelito();
@@ -56,6 +55,7 @@ public class ListadoAdminDelincuentesController implements Initializable{
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private List<LugarRequisitoria> cacheLugares;
+    private Usuario administradorActual;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,6 +66,10 @@ public class ListadoAdminDelincuentesController implements Initializable{
         configurarColumnas();
 
         cargarDatos(repoDelincuente.buscarTodos());
+    }
+
+    public void setAdministradorActual(Usuario administrador) {
+        this.administradorActual = administrador;
     }
 
     private void configurarComboBox() {
@@ -175,9 +179,15 @@ public class ListadoAdminDelincuentesController implements Initializable{
 
 
     @FXML
-    private void regresar(ActionEvent event) throws IOException {
+    private void regresarAlMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/menu/OpcionesDeMenuAdministradorView.fxml"));
         Parent root = loader.load();
+
+        if (loader.getController() instanceof OpcionesDelMenuAdministradorController) {
+
+            OpcionesDelMenuAdministradorController controller = loader.getController();
+            controller.iniciarDatos(this.administradorActual);
+        }
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
