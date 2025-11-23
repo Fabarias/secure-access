@@ -46,7 +46,7 @@
                   <VBox styleClass="menu-buttons-box">
                      <children>
                         <Button mnemonicParsing="false" onAction="#irAListadoDelincuentes" styleClass="button-police, menu-button-wide" text="Observar Listado de Delincuentes" />
-                        <Button mnemonicParsing="false" onAction="#irAReportes" styleClass="button-police, menu-button-wide" text="Ver Reportes Ciudadanos" />
+                        <Button mnemonicParsing="false" styleClass="button-police, menu-button-wide" text="Ver Reportes Ciudadanos" />
                      </children>
                   </VBox>
 
