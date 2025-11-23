@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessbackend.servicios.AutenticacionDeServicio;
 import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.OpcionesDelMenuAdministradorController;
+import org.secureaccess.app.secureaccessfrontend.util.Alerta;
 
 import java.io.IOException;
 
@@ -29,6 +30,12 @@ public class RegistroPoliciaController {
 
     private final AutenticacionDeServicio autenticacionDeServicio = new AutenticacionDeServicio();
 
+    private Usuario administradorActual;
+
+    public void setAdministradorActual(Usuario administrador) {
+        this.administradorActual = administrador;
+    }
+
     @FXML
     private void guardarPolicia (ActionEvent event) {
 
@@ -41,29 +48,25 @@ public class RegistroPoliciaController {
                 || usuario.isEmpty() || clave.isEmpty();
 
         if (camposListos) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campos Vacíos",
-                    "Por favor llene todos los campos");
+            Alerta.mostrar("Campos Vacíos", "Por favor llene todos los campos");
             return;
         }
 
         Usuario nuevoPolicia = autenticacionDeServicio.registro(nombre, apellido, usuario, clave, 2);
 
         if (nuevoPolicia != null) {
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito",
-                    "Policia " + apellido + " registrado correctamente.");
+            Alerta.mostrar("Éxito", "Policia " + apellido + " registrado correctamente");
             limpiandoCampos();
         } else {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error",
-                    "No se proceso el registro. El usuario ya existe.");
+            Alerta.mostrar("Error", "No se proceso el registro. El usuario ya existe");
         }
     }
 
     @FXML
     private void regresarAlMenuAdmin(ActionEvent event) throws IOException {
         cambioDeEscena(event, "/ui/menu/OpcionesDeMenuAdministradorView.fxml",
-                "Menu Administrador", null);
+                "Menu Administrador", this.administradorActual);
     }
-
 
     private void limpiandoCampos() {
         nombrePolicia.clear();
@@ -72,17 +75,18 @@ public class RegistroPoliciaController {
         clavePolicia.clear();
     }
 
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
-        Alert alert = new Alert(tipo);
-        alert.setHeaderText(titulo);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
     private void cambioDeEscena(ActionEvent event, String fxmlRuta,
                                 String titulo, Usuario usuarioIniciado) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlRuta));
         Parent root = loader.load();
+
+        boolean asegurandoMenu = usuarioIniciado != null &&
+                loader.getController() instanceof OpcionesDelMenuAdministradorController;
+
+        if (asegurandoMenu) {
+            OpcionesDelMenuAdministradorController controller = loader.getController();
+            controller.iniciarDatos(usuarioIniciado);
+        }
 
         Scene escena = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
