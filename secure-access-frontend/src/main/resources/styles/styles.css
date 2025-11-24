@@ -553,3 +553,52 @@
 .admin-table .placeholder .label {
     -fx-text-fill: -color-texto-gris;
 }
+
+/* --- TABLA CIUDADANO (Estilo Azul) --- */
+.citizen-table {
+    -fx-background-color: transparent;
+    -fx-border-color: -color-borde-sutil;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+/* Encabezados */
+.citizen-table .column-header-background {
+    -fx-background-color: -color-bloque;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: -color-ciudadano; /* Línea Azul */
+}
+
+.citizen-table .column-header {
+    -fx-background-color: transparent;
+}
+
+.citizen-table .column-header .label {
+    -fx-text-fill: -color-ciudadano; /* Texto Azul */
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* Celdas */
+.citizen-table .table-row-cell {
+    -fx-background-color: -color-fondo;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(255, 255, 255, 0.02);
+}
+
+.citizen-table .table-cell {
+    -fx-text-fill: -color-texto-blanco;
+    -fx-alignment: CENTER;
+}
+
+.citizen-table .table-row-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+}
+
+.citizen-table:focused .table-row-cell:selected {
+    -fx-background-color: derive(-color-ciudadano, -40%); /* Selección Azul Oscura */
+}
+
+.citizen-table .placeholder .label {
+    -fx-text-fill: -color-texto-gris;
+}
