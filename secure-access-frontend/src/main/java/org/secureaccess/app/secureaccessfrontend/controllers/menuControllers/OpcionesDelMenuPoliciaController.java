@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers.ListadoPoliciaDelincuentesController;
+import org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers.ListadoReportesPoliciaController;
 
 import java.io.IOException;
 
@@ -44,6 +45,11 @@ public class OpcionesDelMenuPoliciaController {
         cambiarEscena(event, "/ui/menu/listasDelincuentes/listadoPoliciaDelincuentes.fxml", "Listado de Buscados - Policía");
     }
 
+    @FXML
+    private void irAReportes(ActionEvent event) throws IOException {
+        cambiarEscena(event, "/ui/menu/listasDelincuentes/listadoReportesPoliciaView.fxml", "Reportes Ciudadanos");
+    }
+
     private void cambiarEscena(ActionEvent event,
                                String fxmlPath,
                                String titulo) throws IOException {
@@ -52,6 +58,8 @@ public class OpcionesDelMenuPoliciaController {
 
          if (loader.getController() instanceof ListadoPoliciaDelincuentesController) {
              ((ListadoPoliciaDelincuentesController) loader.getController()).setUsuarioActual(this.policiaActual);
+         } else if (loader.getController() instanceof ListadoReportesPoliciaController) {
+             ((ListadoReportesPoliciaController) loader.getController()).setPoliciaActual(this.policiaActual);
          }
 
         Scene scene = new Scene(root);
