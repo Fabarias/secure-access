@@ -8,14 +8,12 @@ module org.secureaccess.app.secureaccessfrontend {
     requires java.sql;
 
     opens org.secureaccess.app.secureaccessfrontend to javafx.graphics, javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.listadoDelincuentesControllers to javafx.fxml;
     opens org.secureaccess.app.secureaccessfrontend.viewModels to javafx.graphics, javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.eleccionControllers to javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.loginsControllers to javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.profilesControllers to javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.menuControllers to javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.registersControllers to javafx.fxml;
     opens org.secureaccess.app.secureaccessfrontend.controllers.components to javafx.fxml;
-    opens org.secureaccess.app.secureaccessfrontend.controllers.menuControllers.reportesControllers to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.auth to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.dashboard to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.users to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.crimes to javafx.fxml;
+    opens org.secureaccess.app.secureaccessfrontend.controllers.reports to javafx.fxml;
 
 }

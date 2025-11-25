@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.dashboard.MenuCiudadanoController">
+
+   <stylesheets>
+      <URL value="@../../styles/styles.css" />
+   </stylesheets>
+
+   <top>
+      <AnchorPane prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="680.0" layoutY="18.0" mnemonicParsing="false" onAction="#cerrarSesion" styleClass="button-secondary" text="Cerrar Sesión" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0" />
+         </children>
+      </AnchorPane>
+   </top>
+
+   <center>
+      <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" BorderPane.alignment="CENTER">
+         <children>
+
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="450.0" styleClass="role-box">
+               <children>
+
+                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/usuario.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+
+                  <Label styleClass="role-title" text="Panel Ciudadano" />
+                  <Label fx:id="labelNombreCiudadano" styleClass="label" text="Bienvenido, Ciudadano" />
+
+                  <VBox styleClass="menu-buttons-box">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#irACrearReporte" styleClass="button-citizen, menu-button-wide" text="Crear un Reporte" />
+                        <Button mnemonicParsing="false" onAction="#irAVerHistorial" styleClass="button-citizen, menu-button-wide" text="Ver Historial de Reportes" />
+                        <Button mnemonicParsing="false" onAction="#irAListadoDelincuentes" styleClass="button-citizen, menu-button-wide" text="Ver Lista de Buscados" />
+                     </children>
+                  </VBox>
+
+               </children>
+               <padding>
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+               </padding>
+            </VBox>
+
+         </children>
+      </VBox>
+   </center>
+
+</BorderPane>

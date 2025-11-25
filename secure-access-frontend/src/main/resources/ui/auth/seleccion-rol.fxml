@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="Infinity" maxWidth="Infinity" prefHeight="500.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.auth.SeleccionRolController">
+
+   <stylesheets>
+      <java.net.URL value="@../../styles/styles.css" />
+   </stylesheets>
+
+   <top>
+      <AnchorPane prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="20.0" layoutY="20.0" styleClass="title-header" text="SecureAccess" AnchorPane.leftAnchor="20.0" />
+            <Button layoutX="501.0" layoutY="23.0" mnemonicParsing="false" onAction="#verEleccionAdministrador" styleClass="button-secondary" text="Otra opción" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+         </children>
+      </AnchorPane>
+   </top>
+
+   <center>
+      <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" BorderPane.alignment="CENTER">
+         <children>
+
+            <HBox alignment="CENTER" fillHeight="true" maxHeight="-Infinity" maxWidth="Infinity" spacing="60.0" VBox.vgrow="NEVER">
+               <children>
+
+                  <VBox alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="320.0" styleClass="role-box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/usuario.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+
+                        <Label styleClass="role-title" text="Ciudadano" />
+                        <Label text="Acceso para consulta ciudadana" wrapText="true" alignment="CENTER" maxWidth="250.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+
+                        <Button mnemonicParsing="false" onAction="#accesoLoginCiudadano" prefHeight="40.0" maxWidth="Infinity" styleClass="button-citizen" text="Ingresar como Ciudadano">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Button>
+
+                        <VBox spacing="8.0" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="list-item" text="• Ver lista de buscados" wrapText="true" />
+                              <Label styleClass="list-item" text="• Reportar información" wrapText="true" />
+                              <Label styleClass="list-item" text="• Consultar recompensas" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+                  <VBox alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="320.0" styleClass="role-box" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/policia.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+
+                        <Label styleClass="role-title" text="Policía" />
+                        <Label text="Acceso autorizado para personal policial" wrapText="true" alignment="CENTER" maxWidth="250.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+
+                        <Button mnemonicParsing="false" onAction="#accesoLoginPolicia" prefHeight="40.0" maxWidth="Infinity" styleClass="button-police" text="Ingresar como Policía">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Button>
+
+                        <VBox spacing="8.0" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="list-item" text="• Gestión completa de registros" wrapText="true" />
+                              <Label styleClass="list-item" text="• Actualizar estado de búsqueda" wrapText="true" />
+                              <Label styleClass="list-item" text="• Acceso a información clasificada" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+               </children>
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </HBox>
+
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

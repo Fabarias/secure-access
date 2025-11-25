@@ -12,7 +12,7 @@ public class RunApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/selection/eleccionView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/auth/seleccion-rol.fxml"));
 
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
