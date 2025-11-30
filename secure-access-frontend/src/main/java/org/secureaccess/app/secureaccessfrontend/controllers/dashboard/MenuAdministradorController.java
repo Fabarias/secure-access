@@ -26,7 +26,7 @@ public class MenuAdministradorController {
         this.administradorActual = administrador;
 
         if (administrador != null) {
-            labelNombreAdmin.setText("Administrador " + administrador.getNombre() + " " + administrador.getApellido());
+            labelNombreAdmin.setText("Administrador " + administrador.getPrimerNombre() + " " + administrador.getApellidosCompleto());
         }
     }
 

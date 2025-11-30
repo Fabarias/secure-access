@@ -20,7 +20,7 @@ import java.util.Optional;
 public class LoginCiudadanoController {
 
     @FXML
-    private TextField textoUsuario;
+    private TextField correoUsuarioCiudadano;
     @FXML
     private PasswordField claveCiudadano;
 
@@ -34,9 +34,9 @@ public class LoginCiudadanoController {
     }
 
     @FXML
-    private void accesoLoginCiudadano(ActionEvent event) throws IOException {
+    private void accesoLoginCiudadano(ActionEvent event) {
 
-        String nombreUsuario = textoUsuario.getText();
+        String nombreUsuario = correoUsuarioCiudadano.getText();
         String contraUsuario = claveCiudadano.getText();
 
         if (nombreUsuario.isEmpty() || contraUsuario.isEmpty()) {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.auth.VerificacionAdminController">
+
+    <top>
+        <AnchorPane prefHeight="60.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="button-secondary" text="Cancelar y Regresar" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+            </children>
+        </AnchorPane>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" BorderPane.alignment="CENTER">
+            <children>
+
+                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="400.0" spacing="20.0" styleClass="role-box">
+                    <children>
+
+                        <Label styleClass="title-header" text="Verificación de Seguridad" />
+
+                        <Label style="-fx-text-fill: #E6F1FF;" text="Hemos enviado un código de 3 dígitos a su correo. Ingréselo a continuación." textAlignment="CENTER" wrapText="true" />
+
+                        <VBox alignment="CENTER" spacing="10.0">
+                            <TextField fx:id="txtCodigo" maxWidth="150.0" prefHeight="50.0" promptText="---" styleClass="code-input" />
+                            <Label style="-fx-font-size: 12px; -fx-text-fill: #8892B0;" text="Código de 3 dígitos" />
+                        </VBox>
+
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <Label text="El código expira en:" />
+                            <Label fx:id="lblTemporizador" styleClass="timer-label" text="02:00" />
+                        </HBox>
+
+                        <Button fx:id="btnVerificar" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="button-admin" text="Verificar Identidad" />
+
+                    </children>
+                    <padding>
+                        <Insets bottom="40.0" left="40.0" right="40.0" top="30.0" />
+                    </padding>
+                </VBox>
+
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>

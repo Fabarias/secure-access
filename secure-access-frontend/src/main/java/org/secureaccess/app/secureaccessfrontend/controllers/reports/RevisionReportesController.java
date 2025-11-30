@@ -73,7 +73,7 @@ public class RevisionReportesController implements Initializable {
                     .map(Usuario::getNombreCompleto)
                     .orElse("Desconocido (ID " + r.getCiudadanoId() + ")");
 
-            String nombreDelito = repoDelito.buscarPorId(1)
+            String nombreDelito = repoDelito.buscarPorId(r.getDelitoId())
                     .map(Delito::getDelitoNombre)
                     .orElse("No identificado");
 

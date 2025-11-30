@@ -18,6 +18,7 @@ import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioUsuario;
 import org.secureaccess.app.secureaccessbackend.servicios.AdministracionServicio;
 import org.secureaccess.app.secureaccessfrontend.controllers.dashboard.MenuAdministradorController;
+import org.secureaccess.app.secureaccessfrontend.util.Alerta;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,19 +52,19 @@ public class GestionDeUsuariosController implements Initializable {
         Usuario seleccionado = tablaUsuarios.getSelectionModel().getSelectedItem();
 
         if (seleccionado == null) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Selección requerida",
+            Alerta.mostrar("Selección requerida",
                     "Por favor seleccione un usuario de la tabla");
             return;
         }
 
         if (seleccionado.getUsuarioId() == administradorActual.getUsuarioId()) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Acción Inválida",
+            Alerta.mostrar("Acción Inválida",
                     "No puedes deshabilitar tu propia cuenta.");
         }
 
         adminServicio.habilitarUsuario(administradorActual, seleccionado.getUsuarioId());
 
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito",
+        Alerta.mostrar("Éxito",
                 "Usuario habilitado correctamente.");
         cargarDatos();
     }
@@ -73,37 +74,34 @@ public class GestionDeUsuariosController implements Initializable {
         Usuario seleccionado = tablaUsuarios.getSelectionModel().getSelectedItem();
 
         if (seleccionado == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Selección requerida", "Por favor seleccione un usuario de la tabla.");
+            Alerta.mostrar("Selección requerida", "Por favor seleccione un usuario de la tabla.");
             return;
         }
 
         if (seleccionado.getUsuarioId() == administradorActual.getUsuarioId()) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Acción Inválida", "No puedes deshabilitar tu propia cuenta.");
+            Alerta.mostrar("Acción Inválida", "No puedes deshabilitar tu propia cuenta.");
             return;
         }
 
         adminServicio.deshabilitarUsuario(administradorActual, seleccionado.getUsuarioId());
 
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Usuario deshabilitado correctamente.");
+        Alerta.mostrar("Éxito", "Usuario deshabilitado correctamente.");
         cargarDatos();
     }
-
-
-
 
     private void configurarColumnas() {
 
         colNombre.setCellValueFactory(cell -> new SimpleStringProperty(cell
                 .getValue()
-                .getNombre()));
+                .getPrimerNombre()));
 
         colApellido.setCellValueFactory(cell -> new SimpleStringProperty(cell
                 .getValue()
-                .getApellido()));
+                .getApellidosCompleto()));
 
         colUsuario.setCellValueFactory(cell -> new SimpleStringProperty(cell
                 .getValue()
-                .getNombreUsuario()));
+                .getUsername()));
 
         colRol.setCellValueFactory(cell -> new SimpleStringProperty(cell
                 .getValue()
@@ -115,7 +113,7 @@ public class GestionDeUsuariosController implements Initializable {
     }
 
     @FXML
-    private void regresar(ActionEvent event) throws IOException {
+    private void regresarAlMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard/menu-administrador.fxml"));
         Parent root = loader.load();
 
@@ -134,12 +132,4 @@ public class GestionDeUsuariosController implements Initializable {
         ObservableList<Usuario> listaUsuarios = FXCollections.observableArrayList(repoUsuario.listarTodos());
         tablaUsuarios.setItems(listaUsuarios);
     }
-
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
-        Alert alert = new Alert(tipo);
-        alert.setHeaderText(titulo);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
 }

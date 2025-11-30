@@ -21,7 +21,7 @@
             </padding>
             <children>
                 <HBox alignment="CENTER_LEFT">
-                    <Button mnemonicParsing="false" onAction="#regresar" styleClass="button-secondary" text="Regresar al Menú" />
+                    <Button mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="button-secondary" text="Regresar al Menú" />
                     <Region HBox.hgrow="ALWAYS" />
                     <Label styleClass="title-header" text="Mis Reportes" />
                     <Region HBox.hgrow="ALWAYS" />

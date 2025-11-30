@@ -3,24 +3,41 @@ package org.secureaccess.app.secureaccessbackend.modelos;
 public class Usuario {
 
     private int usuarioId;
-    private String nombre;
-    private String apellido;
-    private String nombreUsuario;
-    private String usuarioClave;
+    private String primerNombre;
+    private String primerApellido;
+    private String segundoApellido;
+    private String correo;
+    private String username;
+    private String clave;
     private Integer rolId;
-    private int estado;
+    private Integer estado;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String apellido, String nombreUsuario,
-                   String usuarioClave, int rolId, int estado) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.nombreUsuario = nombreUsuario;
-        this.usuarioClave = usuarioClave;
+    public Usuario(int usuarioId, String primerNombre, String primerApellido, String segundoApellido,
+                   String correo, String username, String clave, Integer rolId, Integer estado) {
+        this.usuarioId = usuarioId;
+        this.primerNombre = primerNombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.correo = correo;
+        this.username = username;
+        this.clave = clave;
         this.rolId = rolId;
         this.estado = estado;
+    }
+
+    public Usuario(String primerNombre, String primerApellido, String segundoApellido,
+                   String correo, String username, String clave, Integer rolId) {
+        this.primerNombre = primerNombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.correo = correo;
+        this.username = username;
+        this.clave = clave;
+        this.rolId = rolId;
+        this.estado = 1;
     }
 
     public int getUsuarioId() {
@@ -31,36 +48,52 @@ public class Usuario {
         this.usuarioId = usuarioId;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getPrimerNombre() {
+        return primerNombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getPrimerApellido() {
+        return primerApellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getSegundoApellido() {
+        return segundoApellido;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
-    public String getUsuarioClave() {
-        return usuarioClave;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setUsuarioClave(String usuarioClave) {
-        this.usuarioClave = usuarioClave;
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public int getRolId() {
@@ -75,18 +108,21 @@ public class Usuario {
         return estado;
     }
 
-    public String getEstadoString() {
-        return (getEstado() != 1) ? "INACTIVO" : "ACTIVO";
-    }
-
     public void setEstado(int estado) {
         this.estado = estado;
     }
 
-    public String getNombreCompleto() {
-        return nombre + " " + apellido;
+    public String getEstadoString() {
+        return (getEstado() != 1) ? "INACTIVO" : "ACTIVO";
     }
 
+    public String getNombreCompleto() {
+        return getPrimerNombre() + " " + getPrimerApellido() + (getSegundoApellido() != null ? " " + getSegundoApellido(): "");
+    }
+
+    public String getApellidosCompleto() {
+        return getPrimerApellido() + " " + getSegundoApellido();
+    }
 
     public boolean estaActivo() {
         return estado == 1;
@@ -97,17 +133,12 @@ public class Usuario {
     }
 
     public String getRolNombre() {
-        switch (this.rolId) {
-            case 1:
-                return "ADMINISTRADOR";
-            case 2:
-                return "POLICIA";
-            case 3:
-                return "CIUDADANO";
-
-            default:
-                return null;
-        }
+        return switch (this.rolId) {
+            case 1 -> "ADMINISTRADOR";
+            case 2 -> "POLICIA";
+            case 3 -> "CIUDADANO";
+            default -> null;
+        };
     }
 }
 

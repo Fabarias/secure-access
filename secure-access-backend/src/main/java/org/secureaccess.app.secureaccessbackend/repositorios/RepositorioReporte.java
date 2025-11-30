@@ -15,7 +15,7 @@ public class RepositorioReporte {
     public List<CategoriaDelito> listarCategorias() {
 
         List<CategoriaDelito> categorias = new ArrayList<>();
-        String sql = "SELECT categoria_id, tipo_de_urgencia FROM categoria_delitos";
+        String sql = "SELECT categoria_delito_id, tipo_de_urgencia FROM categoria_delitos";
 
         try (Connection connection = DataBaseControl.getConnection();
              Statement statement = connection.createStatement();
@@ -23,7 +23,7 @@ public class RepositorioReporte {
 
             while (resultSet.next()) {
                 categorias.add(new CategoriaDelito(
-                        resultSet.getInt("categoria_id"),
+                        resultSet.getInt("categoria_delito_id"),
                         resultSet.getString("tipo_de_urgencia")
                 ));
             }
@@ -112,7 +112,7 @@ public class RepositorioReporte {
         return lista;
     }
 
-    public boolean actualizarEstado(int reporteId, String nuevoEstado) {
+    public void actualizarEstado(int reporteId, String nuevoEstado) {
 
         String sql = "UPDATE reportes SET estado_reporte = ? WHERE reporte_id = ?";
 
@@ -122,14 +122,14 @@ public class RepositorioReporte {
             preparedStatement.setString(1, nuevoEstado);
             preparedStatement.setInt(2, reporteId);
 
-            return preparedStatement.executeUpdate() > 0;
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
     private Reporte mapearReporte(ResultSet resultSet) throws SQLException {
+
         Timestamp timestamp = resultSet.getTimestamp("fechaDelito");
         LocalDateTime fecha = (timestamp != null) ? timestamp.toLocalDateTime() : null;
 
@@ -147,7 +147,7 @@ public class RepositorioReporte {
 
     public int IndiceCategoriaDelito(String nombreDelito) throws SQLException {
 
-        String sql = "SELECT categoria_id FROM categoria_delito WHERE nombre_delito = ?";
+        String sql = "SELECT categoria_id FROM categoria_delitos WHERE nombre_delito = ?";
         int indice = 0;
 
         try (Connection connection = DataBaseControl.getConnection();
@@ -157,7 +157,7 @@ public class RepositorioReporte {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    indice = resultSet.getInt("categoria_id");
+                    indice = resultSet.getInt("categoria_delito_id");
                 }
             }
         }

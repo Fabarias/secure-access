@@ -21,7 +21,11 @@ public class RegistroPoliciaController {
     @FXML
     private TextField nombrePolicia;
     @FXML
-    private TextField apellidoPolicia;
+    private TextField primerApellidoPolicia;
+    @FXML
+    private TextField segundoApellidoPolicia;
+    @FXML
+    private TextField correoPolicia;
     @FXML
     private TextField usuarioPolicia;
     @FXML
@@ -36,25 +40,35 @@ public class RegistroPoliciaController {
     }
 
     @FXML
-    private void guardarPolicia (ActionEvent event) {
+    private void guardarPolicia(ActionEvent event) {
 
         String nombre = nombrePolicia.getText();
-        String apellido = apellidoPolicia.getText();
+        String primerApellido = primerApellidoPolicia.getText();
+        String segundoApellido = segundoApellidoPolicia.getText();
+        String correo = correoPolicia.getText();
         String usuario = usuarioPolicia.getText();
         String clave = clavePolicia.getText();
 
-        boolean camposListos = nombre.isEmpty() || apellido.isEmpty()
-                || usuario.isEmpty() || clave.isEmpty();
+        boolean camposListos = nombre.isEmpty() || primerApellido.isEmpty() || segundoApellido.isEmpty()
+                || correo.isEmpty() || usuario.isEmpty() || clave.isEmpty();
 
         if (camposListos) {
             Alerta.mostrar("Campos Vacíos", "Por favor llene todos los campos");
             return;
         }
 
-        Usuario nuevoPolicia = autenticacionDeServicio.registro(nombre, apellido, usuario, clave, 2);
+        Usuario nuevoPolicia = autenticacionDeServicio.registro(
+                nombre,
+                primerApellido,
+                segundoApellido,
+                correo,
+                usuario,
+                clave,
+                2
+        );
 
         if (nuevoPolicia != null) {
-            Alerta.mostrar("Éxito", "Policia " + apellido + " registrado correctamente");
+            Alerta.mostrar("Éxito", "Policia " + nuevoPolicia.getApellidosCompleto() + " registrado correctamente");
             limpiandoCampos();
         } else {
             Alerta.mostrar("Error", "No se proceso el registro. El usuario ya existe");
@@ -69,8 +83,9 @@ public class RegistroPoliciaController {
 
     private void limpiandoCampos() {
         nombrePolicia.clear();
-        apellidoPolicia.clear();
-        usuarioPolicia.clear();
+        primerApellidoPolicia.clear();
+        segundoApellidoPolicia.clear();
+        correoPolicia.clear();
         clavePolicia.clear();
     }
 

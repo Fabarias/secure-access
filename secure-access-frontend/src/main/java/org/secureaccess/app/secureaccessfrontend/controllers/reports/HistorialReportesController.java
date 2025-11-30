@@ -110,7 +110,7 @@ public class HistorialReportesController implements Initializable {
     }
 
     @FXML
-    private void regresar(ActionEvent event) throws IOException {
+    private void regresarAlMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard/menu-ciudadano.fxml"));
         Parent root = loader.load();
 

@@ -63,7 +63,7 @@ public class RepositorioDelincuente {
         int usuarioRegistroId = resultSet.getInt("usuario_registro_id");
         double recompensa = resultSet.getDouble("recompensa");
 
-        Timestamp timestamp = resultSet.getTimestamp("fecha_registro");
+        Timestamp timestamp = resultSet.getTimestamp("delincuente_fecha_registro");
         LocalDateTime fechaRegistro = (timestamp != null) ? timestamp.toLocalDateTime() : null;
 
         int reporteIdTemp = resultSet.getInt("reporte_origen_id");
@@ -83,7 +83,12 @@ public class RepositorioDelincuente {
     }
 
     public void Top3DelicuentesBuscados(String departamento) {
-        String sql = "SELECT * FROM delincuentes WHERE departamento = ?" + " limit 3";
+
+        String sql = "SELECT d.* FROM delincuentes d " +
+                "JOIN lugares_de_requisitoria l ON d.lugar_de_requisitoria_id = l.lugar_de_requisitoria_id " +
+                "WHERE l.lugar_de_requisitoria_nombre = ? " +
+                "ORDER BY d.recompensa DESC LIMIT 3";
+
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery();) {

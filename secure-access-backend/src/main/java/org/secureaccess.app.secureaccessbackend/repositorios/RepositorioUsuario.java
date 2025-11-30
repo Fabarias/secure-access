@@ -31,14 +31,14 @@ public class RepositorioUsuario {
         return Optional.empty();
     }
 
-    public Optional<Usuario> buscarPorNombreUsuario(String nombreUsuario) {
+    public Optional<Usuario> buscarPorNombreUsuario(String correoUsuario) {
 
-        String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
+        String sql = "SELECT * FROM usuarios WHERE usuario_correo = ?";
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setString(1, nombreUsuario);
+            stmt.setString(1, correoUsuario);
 
             try (ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {
@@ -69,20 +69,28 @@ public class RepositorioUsuario {
     }
 
     public boolean guardar(Usuario usuario) {
-        String sql = "INSERT INTO usuarios (nombre, apellido, nombre_usuario, usuario_clave, rol_id, estado) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (usuario_primer_nombre, " +
+                "usuario_primer_apellido, " +
+                "usuario_segundo_apellido, " +
+                "usuario_correo, " +
+                "usuario_username, " +
+                "usuario_clave, " +
+                "usuario_rol_id, " +
+                "usuario_estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DataBaseControl.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, usuario.getNombre());
-            stmt.setString(2, usuario.getApellido());
-            stmt.setString(3, usuario.getNombreUsuario());
-            stmt.setString(4, usuario.getUsuarioClave());
-            stmt.setInt(5, usuario.getRolId());
-            stmt.setInt(6, usuario.getEstado());
+            stmt.setString(1, usuario.getPrimerNombre());
+            stmt.setString(2, usuario.getPrimerApellido());
+            stmt.setString(3, usuario.getSegundoApellido());
+            stmt.setString(4, usuario.getCorreo());
+            stmt.setString(5, usuario.getUsername());
+            stmt.setString(6, usuario.getClave());
+            stmt.setInt(7, usuario.getRolId());
+            stmt.setInt(8, usuario.getEstado());
 
-            int filasAfectadas = stmt.executeUpdate();
-            return filasAfectadas > 0;
+            return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al guardar usuario: " + e.getMessage());
@@ -91,9 +99,9 @@ public class RepositorioUsuario {
         }
     }
 
-    public boolean actualizarEstado(int idUsuario, int nuevoEstado) {
+    public void actualizarEstado(int idUsuario, int nuevoEstado) {
 
-        String sql = "UPDATE usuarios SET estado = ? WHERE usuario_id = ?";
+        String sql = "UPDATE usuarios SET usuario_estado = ? WHERE usuario_id = ?";
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -101,33 +109,24 @@ public class RepositorioUsuario {
              preparedStatement.setInt(1, nuevoEstado);
              preparedStatement.setInt(2, idUsuario);
 
-             int filasAfectadas = preparedStatement.executeUpdate();
-
-             if (filasAfectadas > 0) {
-                 String accion = (nuevoEstado == 1) ? "Habilitado" : "Deshabilitado";
-                 System.out.println("Usuario ID " + idUsuario + " ha sido " + accion);
-                 return true;
-             }
-             return false;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
     private Usuario mapearUsuario(ResultSet resultSet) throws SQLException {
-        Usuario usuario = new Usuario();
-        usuario.setUsuarioId(resultSet.getInt("usuario_id"));
-        usuario.setNombre(resultSet.getString("nombre"));
-        usuario.setApellido(resultSet.getString("apellido"));
 
-        // Seteamos los campos que antes eran de Credencial
-        usuario.setNombreUsuario(resultSet.getString("nombre_usuario"));
-        usuario.setUsuarioClave(resultSet.getString("usuario_clave"));
-        usuario.setRolId(resultSet.getInt("rol_id"));
-        usuario.setEstado(resultSet.getInt("estado"));
-
-        return usuario;
+        return new Usuario(
+                resultSet.getInt("usuario_id"),
+                resultSet.getString("usuario_primer_nombre"),
+                resultSet.getString("usuario_primer_apellido"),
+                resultSet.getString("usuario_segundo_apellido"),
+                resultSet.getString("usuario_correo"),
+                resultSet.getString("usuario_username"),
+                resultSet.getString("usuario_clave"),
+                resultSet.getInt("usuario_rol_id"),
+                resultSet.getInt("usuario_estado")
+        );
     }
 }
 

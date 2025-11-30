@@ -23,7 +23,7 @@ public class MenuPoliciaController {
     public void iniciarDatos(Usuario policia) {
         this.policiaActual = policia;
         if (policia != null) {
-            labelNombrePolicia.setText("Oficial: " + policia.getNombre() + " " + policia.getApellido());
+            labelNombrePolicia.setText("Oficial: " + policia.getPrimerNombre() + " " + policia.getApellidosCompleto());
         }
     }
 

@@ -16,7 +16,7 @@
     <top>
         <AnchorPane prefHeight="80.0" prefWidth="900.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresar" styleClass="button-secondary" text="Regresar al Menú" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0" />
+                <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="button-secondary" text="Regresar al Menú" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0" />
 
                 <Label layoutX="200.0" layoutY="25.0" styleClass="title-header" text="Gestión de Perfiles de Usuario" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
             </children>

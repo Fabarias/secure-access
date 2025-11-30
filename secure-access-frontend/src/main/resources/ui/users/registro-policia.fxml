@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.users.RegistroPoliciaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="900.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.users.RegistroPoliciaController">
+
+   <stylesheets>
+      <URL value="@../../styles/styles.css" />
+   </stylesheets>
 
    <top>
-      <AnchorPane prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="60.0" BorderPane.alignment="CENTER">
          <children>
             <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#regresarAlMenuAdmin" styleClass="button-secondary" text="Regresar al Menú" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
          </children>
@@ -21,44 +21,63 @@
 
    <center>
       <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
          <children>
 
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="450.0" styleClass="role-box">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="550.0" styleClass="role-box">
                <children>
 
-                  <Label styleClass="role-title" text="Registro de Nuevo Policía">
+                  <Label styleClass="role-title" text="Registro de Nuevo Oficial">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Complete los datos para registrar a un nuevo oficial" wrapText="true" alignment="CENTER">
+                  <Label alignment="CENTER" style="-fx-text-fill: #8892B0;" text="Ingrese los datos credenciales para el nuevo personal" wrapText="true">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </Label>
 
-                  <VBox spacing="15.0" alignment="CENTER_LEFT">
+                  <VBox alignment="CENTER_LEFT" spacing="15.0">
                      <children>
 
                         <VBox spacing="5.0">
-                           <Label text="Nombre" style="-fx-font-weight: bold;" />
-                           <TextField fx:id="nombrePolicia" prefHeight="35.0" promptText="Ingrese el nombre" styleClass="police-input" />
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Nombres" />
+                           <TextField fx:id="nombrePolicia" prefHeight="35.0" promptText="Ingrese los nombres" styleClass="police-input" />
                         </VBox>
 
-                        <VBox spacing="5.0">
-                           <Label text="Primer Apellido" style="-fx-font-weight: bold;" />
-                           <TextField fx:id="apellidoPolicia" prefHeight="35.0" promptText="Ingrese el primer apellido" styleClass="police-input" />
-                        </VBox>
+                        <HBox spacing="15.0">
+                           <children>
+                              <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Primer Apellido" />
+                                 <TextField fx:id="primerApellidoPolicia" prefHeight="35.0" promptText="Apellido Paterno" styleClass="police-input" />
+                              </VBox>
+                              <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Segundo Apellido" />
+                                 <TextField fx:id="segundoApellidoPolicia" prefHeight="35.0" promptText="Apellido Materno" styleClass="police-input" />
+                              </VBox>
+                           </children>
+                        </HBox>
 
                         <VBox spacing="5.0">
-                           <Label text="Nombre de Usuario / Placa" style="-fx-font-weight: bold;" />
-                           <TextField fx:id="usuarioPolicia" prefHeight="35.0" promptText="Asigne un usuario o placa única" styleClass="police-input" />
+                           <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Correo Institucional" />
+                           <TextField fx:id="correoPolicia" prefHeight="35.0" promptText="oficial@policia.gob.pe" styleClass="police-input" />
                         </VBox>
 
-                        <VBox spacing="5.0">
-                           <Label text="Contraseña" style="-fx-font-weight: bold;" />
-                           <PasswordField fx:id="clavePolicia" prefHeight="35.0" promptText="Cree una contraseña segura" styleClass="police-input" />
-                        </VBox>
+                        <HBox spacing="15.0">
+                           <children>
+                              <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Nombre de Usuario" />
+                                 <TextField fx:id="usuarioPolicia" prefHeight="35.0" promptText="Usuario único" styleClass="police-input" />
+                              </VBox>
+                              <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Contraseña" />
+                                 <PasswordField fx:id="clavePolicia" prefHeight="35.0" promptText="Clave segura" styleClass="police-input" />
+                              </VBox>
+                           </children>
+                        </HBox>
 
                      </children>
                      <VBox.margin>
@@ -66,7 +85,7 @@
                      </VBox.margin>
                   </VBox>
 
-                  <Button mnemonicParsing="false" onAction="#guardarPolicia" prefHeight="40.0" maxWidth="Infinity" styleClass="button-police" text="Registrar Oficial">
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#guardarPolicia" prefHeight="45.0" styleClass="button-police" text="Registrar Oficial">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -74,7 +93,7 @@
 
                </children>
                <padding>
-                  <Insets top="30.0" right="40.0" bottom="30.0" left="40.0"/>
+                  <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
                </padding>
             </VBox>
 

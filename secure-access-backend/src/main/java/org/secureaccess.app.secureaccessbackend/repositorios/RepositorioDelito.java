@@ -60,7 +60,7 @@ public class RepositorioDelito {
     public List<Delito> listarArchivos() {
 
         List<Delito> lista = new ArrayList<>();
-        String sql = "SELECT * FROM delitos WHERE activo = 1";
+        String sql = "SELECT * FROM delitos WHERE estado = 1";
 
         try (Connection connection = DataBaseControl.getConnection();
              Statement statement = connection.createStatement();
@@ -71,7 +71,7 @@ public class RepositorioDelito {
                  Delito delito = new Delito(
                          resultSet.getInt("delito_id"),
                          resultSet.getString("delito_nombre"),
-                         resultSet.getInt("activo")
+                         resultSet.getInt("estado")
                  );
                  lista.add(delito);
              }

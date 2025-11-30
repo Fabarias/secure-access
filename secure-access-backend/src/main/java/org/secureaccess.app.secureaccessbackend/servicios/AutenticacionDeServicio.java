@@ -11,42 +11,41 @@ public class AutenticacionDeServicio {
 
     private final RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
 
-    public Usuario registro(String nombre,
-                            String apellido,
+    public Usuario registro(String primerNombre,
+                            String primerApellido,
+                            String segundoApellido,
+                            String correo,
                             String nombreDeUsuario,
                             String clave,
                             int rolId) {
 
         if (repositorioUsuario.buscarPorNombreUsuario(nombreDeUsuario).isPresent()) {
-            System.out.println("No se encontro el usuario con nombre de " + nombreDeUsuario);
             return null;
         }
 
         String claveCifrado = BCrypt.hashpw(clave, BCrypt.gensalt());
 
-        Usuario nuevoUsuario = new Usuario(nombre,
-                apellido,
+        Usuario nuevoUsuario = new Usuario(primerNombre,
+                primerApellido,
+                segundoApellido,
+                correo,
                 nombreDeUsuario,
                 claveCifrado,
-                rolId,
-                1);
+                rolId);
 
         boolean guardado = repositorioUsuario.guardar(nuevoUsuario);
 
         if (guardado) {
-            System.out.println("Registro exitoso para: " + nombreDeUsuario);
             return nuevoUsuario;
         } else {
-            System.out.println("Error al guardar en la base de datos");
             return null;
         }
     }
 
-    public Optional<Usuario> iniciarSesion(String nombreUsuario, String claveIngresada) {
-            Optional<Usuario> optionalUsuario = repositorioUsuario.buscarPorNombreUsuario(nombreUsuario);
+    public Optional<Usuario> iniciarSesion(String correoUsuario, String claveIngresada) {
+            Optional<Usuario> optionalUsuario = repositorioUsuario.buscarPorNombreUsuario(correoUsuario);
 
             if (optionalUsuario.isEmpty()) {
-                System.out.println("Usuario no encontrado");
                 return Optional.empty();
             }
 
@@ -56,15 +55,28 @@ public class AutenticacionDeServicio {
                 return Optional.empty();
             }
 
-            if (BCrypt.checkpw(claveIngresada, usuario.getUsuarioClave())) {
-                System.out.println("Bienvenido");
-                usuario.setUsuarioClave(null);
-
+            if (BCrypt.checkpw(claveIngresada, usuario.getClave())) {
+                usuario.setClave(null);
                 return Optional.of(usuario);
+
             } else {
                 return Optional.empty();
             }
     }
 
+    public String generarNombreUsuarioUnico(String nombre, String apellido) {
+        String limpiarNombre = nombre.trim().toLowerCase().split(" ")[0];
+        String limpiarApellido = apellido.trim().toLowerCase().split(" ")[0];
 
+        for (int i = 0; i <= limpiarNombre.length(); i++) {
+            String prefijo = limpiarNombre.substring(0, i);
+            String candidatoUsuario = prefijo + apellido;
+
+            if (repositorioUsuario.buscarPorNombreUsuario(candidatoUsuario).isEmpty()) {
+                return candidatoUsuario;
+            }
+        }
+
+        return null;
+    }
 }

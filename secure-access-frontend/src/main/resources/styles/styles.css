@@ -602,3 +602,28 @@
 .citizen-table .placeholder .label {
     -fx-text-fill: -color-texto-gris;
 }
+
+/* =======================================================
+   VISTA DE VERIFICACIÓN (2FA)
+   ======================================================= */
+
+/* Input especial para códigos cortos (Centrado y grande) */
+.code-input {
+    -fx-alignment: CENTER;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-text-fill: -color-advertencia; /* Texto Amarillo */
+    -fx-border-color: -color-advertencia;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Estilo para el Reloj/Temporizador */
+.timer-label {
+    -fx-text-fill: -color-advertencia; /* Amarillo */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(242, 201, 76, 0.4), 10, 0.5, 0, 0); /* Resplandor */
+}

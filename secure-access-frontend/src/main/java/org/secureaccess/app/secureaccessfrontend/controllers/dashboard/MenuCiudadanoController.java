@@ -25,7 +25,7 @@ public class MenuCiudadanoController {
     public void iniciarDatos(Usuario ciudadano) {
         this.ciudadanoActual = ciudadano;
         if (ciudadano != null) {
-            labelNombreCiudadano.setText("Ciudadano " + ciudadano.getNombre() + " " + ciudadano.getApellido());
+            labelNombreCiudadano.setText("Ciudadano " + ciudadano.getPrimerNombre() + " " + ciudadano.getApellidosCompleto());
         }
     }
 

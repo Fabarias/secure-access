@@ -4,20 +4,20 @@ public class Delito {
 
     private int delitoId;
     private String delitoNombre;
-    private int activo;
+    private Integer estado;
 
     public Delito() {}
 
     public Delito(int delitoId, String delitoNombre) {
         this.delitoId = delitoId;
         this.delitoNombre = delitoNombre;
-        this.activo = 1;
+        this.estado = 1;
     }
 
-    public Delito(int delitoId, String delitoNombre, int activo) {
+    public Delito(int delitoId, String delitoNombre, Integer estado) {
         this.delitoId = delitoId;
         this.delitoNombre = delitoNombre;
-        this.activo = activo;
+        this.estado = estado;
     }
 
     public int getDelitoId() {
@@ -37,14 +37,14 @@ public class Delito {
     }
 
     public int getActivo() {
-        return activo;
+        return this.estado;
     }
 
     public void setActivo(int activo) {
-        this.activo = activo;
+        this.estado = activo;
     }
 
     public boolean estaActivo() {
-        return activo == 1;
+        return estado == 1;
     }
 }

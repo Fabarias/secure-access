@@ -20,7 +20,7 @@ import java.util.Optional;
 public class LoginAdministradorController {
 
     @FXML
-    TextField nombreUsuarioAdministrador;
+    TextField correoUsuarioAdministrador;
 
     @FXML
     PasswordField claveUsuarioAdministrador;
@@ -35,7 +35,7 @@ public class LoginAdministradorController {
 
     @FXML
     public void ingresarUsuarioAdministrador(ActionEvent event) {
-        String usuario = nombreUsuarioAdministrador.getText();
+        String usuario = correoUsuarioAdministrador.getText();
         String clave = claveUsuarioAdministrador.getText();
 
         if (usuario.isEmpty() || clave.isEmpty()) {
@@ -51,7 +51,7 @@ public class LoginAdministradorController {
 
             if (admin.getRolId() == 1) {
                 try {
-                    cambioDeEscena(event, "/ui/dashboard/menu-administrador.fxml", "Menú Administrador", admin);
+                    cambioDeEscena(event, "/ui/auth/verificacion-admin.fxml", "Menú Administrador", admin);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Alerta.mostrar("Error", "No se pudo cargar el menú");
