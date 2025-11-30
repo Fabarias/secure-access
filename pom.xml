@@ -14,7 +14,21 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <!-- JavaMail API -->
+    <dependencies>
+    <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.2</version>
+    </dependency>
 
+    <!-- Activation Framework (requerido para JavaMail) -->
+    <dependency>
+        <groupId>javax.activation</groupId>
+        <artifactId>activation</artifactId>
+        <version>1.1.1</version>
+    </dependency>
+    </dependencies>
     <modules>
         <module>secure-access-backend</module>
         <module>secure-access-frontend</module>
