@@ -6,6 +6,7 @@ module org.secureaccess.app.secureaccessfrontend {
     requires com.dlsc.formsfx;
     requires org.secureaccess.app.secureaccessbackend;
     requires java.sql;
+    requires jbcrypt;
 
     opens org.secureaccess.app.secureaccessfrontend to javafx.graphics, javafx.fxml;
     opens org.secureaccess.app.secureaccessfrontend.viewModels to javafx.graphics, javafx.fxml;

@@ -23,9 +23,9 @@
             <children>
                 <AnchorPane>
                     <children>
-                        <Button mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="button-secondary" text="Regresar al Menú" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
+                        <Label alignment="CENTER" layoutX="200.0" mouseTransparent="true" styleClass="title-header" text="Observatorio de Delincuentes (Administración)" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
-                        <Label alignment="CENTER" layoutX="200.0" styleClass="title-header" text="Observatorio de Delincuentes (Administración)" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="button-secondary" text="Regresar al Menú" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
                     </children>
                 </AnchorPane>
 

@@ -180,6 +180,7 @@ public class ListaDelincuentesAdminController implements Initializable{
 
     @FXML
     private void regresarAlMenu(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard/menu-administrador.fxml"));
         Parent root = loader.load();
 

@@ -31,14 +31,14 @@ public class RepositorioUsuario {
         return Optional.empty();
     }
 
-    public Optional<Usuario> buscarPorNombreUsuario(String correoUsuario) {
+    public Optional<Usuario> buscarPorNombreUsuario(String nombreUsuario) {
 
-        String sql = "SELECT * FROM usuarios WHERE usuario_correo = ?";
+        String sql = "SELECT * FROM usuarios WHERE usuario_username = ?";
 
         try (Connection connection = DataBaseControl.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setString(1, correoUsuario);
+            stmt.setString(1, nombreUsuario);
 
             try (ResultSet resultSet = stmt.executeQuery()) {
                 if (resultSet.next()) {

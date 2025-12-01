@@ -42,8 +42,8 @@ public class AutenticacionDeServicio {
         }
     }
 
-    public Optional<Usuario> iniciarSesion(String correoUsuario, String claveIngresada) {
-            Optional<Usuario> optionalUsuario = repositorioUsuario.buscarPorNombreUsuario(correoUsuario);
+    public Optional<Usuario> iniciarSesion(String nombreUsuario, String claveIngresada) {
+            Optional<Usuario> optionalUsuario = repositorioUsuario.buscarPorNombreUsuario(nombreUsuario);
 
             if (optionalUsuario.isEmpty()) {
                 return Optional.empty();

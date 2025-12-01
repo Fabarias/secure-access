@@ -47,7 +47,7 @@
                      <children>
 
                         <VBox spacing="5.0">
-                           <Label style="-fx-font-weight: bold;" text="Correo electrónico" />
+                           <Label style="-fx-font-weight: bold;" text="Nombre de usuario" />
                            <TextField fx:id="correoUsuarioPolicia" prefHeight="35.0" promptText="ejemplo@correo.com" />
                         </VBox>
 
