@@ -80,7 +80,7 @@ public class ListaDelincuentesAdminController implements Initializable{
         this.comboDepartamentos.getItems()
                 .addAll(nombresLugares);
         this.comboDepartamentos.getItems()
-                .add(0, "Todos los Departamentos");
+                .add(0, "Todos los Distritos");
         this.comboDepartamentos.getSelectionModel().selectFirst();
     }
 
@@ -120,7 +120,7 @@ public class ListaDelincuentesAdminController implements Initializable{
 
         List<Delincuente> delincuentesEnProceso;
 
-        if ("Todos los Departamentos".equals(departamento)) {
+        if ("Todos los Distritos".equals(departamento)) {
             delincuentesEnProceso = repoDelincuente.buscarTodos();
         } else {
             int idLugar = this.cacheLugares.stream()

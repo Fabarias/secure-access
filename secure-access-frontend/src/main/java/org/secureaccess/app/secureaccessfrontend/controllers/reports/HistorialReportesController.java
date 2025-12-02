@@ -69,8 +69,8 @@ public class HistorialReportesController implements Initializable {
 
     private void configurarFiltros() {
 
-        comboEstado.getItems().addAll("Todos", "Pendiente", "Atendido", "Denegado");
-        comboEstado.getSelectionModel().select("Pendiente");
+        comboEstado.getItems().addAll("Todos", "Atendido", "Espera", "Denegado");
+        comboEstado.getSelectionModel().select("Espera");
     }
 
     private void cargarDatosIniciales() {

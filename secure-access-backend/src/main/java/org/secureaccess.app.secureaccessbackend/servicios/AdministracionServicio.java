@@ -7,23 +7,19 @@ public class AdministracionServicio {
 
     private final RepositorioUsuario repositorioUsuario = new RepositorioUsuario();
 
-    public void deshabilitarUsuario(Usuario administrador, int usuarioId) {
+    public boolean deshabilitarUsuario(Usuario administrador, int usuarioId) {
 
-        if (!"ADMINISTRADOR".equalsIgnoreCase(administrador.getNombreRol())) {
-            System.out.println("Operacion permitida solo por Administradores");
-            return;
-        }
-
-        repositorioUsuario.actualizarEstado(usuarioId, 0);
+        if (!esAdmin(administrador)) return false;
+        return repositorioUsuario.actualizarEstado(usuarioId, 0);
     }
 
-    public void habilitarUsuario(Usuario administrador, int usuarioId) {
-        if (!"ADMINISTRADOR".equalsIgnoreCase(administrador.getNombreRol())) {
-            System.out.println("Operación permitida solo por Administradores");
-            return;
-        }
+    public boolean habilitarUsuario(Usuario administrador, int usuarioId) {
 
-        repositorioUsuario.actualizarEstado(usuarioId, 1);
+        if (!esAdmin(administrador)) return false;
+        return repositorioUsuario.actualizarEstado(usuarioId, 1);
     }
 
+    private boolean esAdmin(Usuario u) {
+        return u != null && (u.getRolId() == 1 || "ADMINISTRADOR".equalsIgnoreCase(u.getNombreRol()));
+    }
 }

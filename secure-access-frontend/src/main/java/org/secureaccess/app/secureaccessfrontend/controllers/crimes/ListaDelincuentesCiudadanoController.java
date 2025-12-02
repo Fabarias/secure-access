@@ -83,7 +83,7 @@ public class ListaDelincuentesCiudadanoController implements Initializable {
 
     private void cargarDepartamentos() {
         this.cacheLugares = repoLugar.listarTodos();
-        comboDepartamentos.getItems().add("Todos los Departamentos");
+        comboDepartamentos.getItems().add("Todos los Distritos");
 
         List<String> nombres = cacheLugares.stream()
                 .map(LugarRequisitoria::getLugarDeRequisitoriaNombre)
@@ -100,7 +100,7 @@ public class ListaDelincuentesCiudadanoController implements Initializable {
 
         List<Delincuente> resultadosEnBruto;
 
-        boolean mostrarTodo = departamentoFiltro == null || "Todos los Departamentos".equals(departamentoFiltro);
+        boolean mostrarTodo = departamentoFiltro == null || "Todos los Distritos".equals(departamentoFiltro);
 
         if (mostrarTodo) {
             resultadosEnBruto = repoDelincuente.buscarTodos();

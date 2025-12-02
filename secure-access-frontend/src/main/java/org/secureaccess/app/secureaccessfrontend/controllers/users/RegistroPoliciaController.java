@@ -3,6 +3,7 @@ package org.secureaccess.app.secureaccessfrontend.controllers.users;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,8 +16,10 @@ import org.secureaccess.app.secureaccessfrontend.controllers.dashboard.MenuAdmin
 import org.secureaccess.app.secureaccessfrontend.util.Alerta;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class RegistroPoliciaController {
+public class RegistroPoliciaController implements Initializable {
 
     @FXML
     private TextField nombrePolicia;
@@ -37,6 +40,26 @@ public class RegistroPoliciaController {
 
     public void setAdministradorActual(Usuario administrador) {
         this.administradorActual = administrador;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        usuarioPolicia.setEditable(false);
+        usuarioPolicia.setFocusTraversable(false);
+
+        nombrePolicia.focusedProperty().addListener((obs,
+                                                     oldVal,
+                                                     newVal) -> {
+            if (!newVal) intentarGenerarUsuario();
+        });
+
+        primerApellidoPolicia.focusedProperty().addListener((obs,
+                                                             oldVal,
+                                                             newVal) -> {
+            if (!newVal) intentarGenerarUsuario();
+        });
+
     }
 
     @FXML
@@ -107,5 +130,15 @@ public class RegistroPoliciaController {
         stage.setTitle(titulo);
         stage.setScene(escena);
         stage.show();
+    }
+
+    private void intentarGenerarUsuario() {
+        String nombre = nombrePolicia.getText();
+        String apellido = primerApellidoPolicia.getText();
+
+        if (!nombre.isEmpty() && !apellido.isEmpty()) {
+            String usuarioGenerado = autenticacionDeServicio.generarNombreUsuarioUnico(nombre, apellido);
+            usuarioPolicia.setText(usuarioGenerado);
+        }
     }
 }

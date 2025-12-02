@@ -79,7 +79,7 @@ public class ListaDelincuentesPoliciaController implements Initializable {
 
         this.cacheLugares = repoLugar.listarTodos();
 
-        comboDepartamentos.getItems().add("Todos los Departamentos");
+        comboDepartamentos.getItems().add("Todos los Distritos");
 
         List<String> nombres = cacheLugares.stream()
                 .map(LugarRequisitoria::getLugarDeRequisitoriaNombre)

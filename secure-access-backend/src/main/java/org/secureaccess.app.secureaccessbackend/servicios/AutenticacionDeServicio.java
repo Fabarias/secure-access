@@ -66,17 +66,16 @@ public class AutenticacionDeServicio {
 
     public String generarNombreUsuarioUnico(String nombre, String apellido) {
         String limpiarNombre = nombre.trim().toLowerCase().split(" ")[0];
-        String limpiarApellido = apellido.trim().toLowerCase().split(" ")[0];
+        String limpiarApellido = apellido.trim().toLowerCase();
 
-        for (int i = 0; i <= limpiarNombre.length(); i++) {
+        for (int i = 1; i <= limpiarNombre.length(); i++) {
             String prefijo = limpiarNombre.substring(0, i);
-            String candidatoUsuario = prefijo + apellido;
+            String candidatoUsuario = prefijo + limpiarApellido;
 
             if (repositorioUsuario.buscarPorNombreUsuario(candidatoUsuario).isEmpty()) {
                 return candidatoUsuario;
             }
         }
-
         return null;
     }
 }

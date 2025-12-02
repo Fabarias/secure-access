@@ -99,7 +99,7 @@ public class RepositorioUsuario {
         }
     }
 
-    public void actualizarEstado(int idUsuario, int nuevoEstado) {
+    public boolean actualizarEstado(int idUsuario, int nuevoEstado) {
 
         String sql = "UPDATE usuarios SET usuario_estado = ? WHERE usuario_id = ?";
 
@@ -109,9 +109,13 @@ public class RepositorioUsuario {
              preparedStatement.setInt(1, nuevoEstado);
              preparedStatement.setInt(2, idUsuario);
 
+             return preparedStatement.executeUpdate() > 0;
+
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+
     }
 
     private Usuario mapearUsuario(ResultSet resultSet) throws SQLException {

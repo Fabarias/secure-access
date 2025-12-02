@@ -46,7 +46,6 @@ public class ServicioEmail {
                 boolean resultado = futuro.get(15, TimeUnit.SECONDS);
 
                 if (!resultado) {
-                    System.err.println("✗ No se pudo enviar, eliminando código");
                     codigosPorEmail.remove(email);
                 }
 
