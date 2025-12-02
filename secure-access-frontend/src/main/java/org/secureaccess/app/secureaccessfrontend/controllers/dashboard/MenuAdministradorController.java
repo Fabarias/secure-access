@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
+import org.secureaccess.app.secureaccessfrontend.controllers.crimes.ListaDelincuentesAdminController;
 import org.secureaccess.app.secureaccessfrontend.controllers.users.GestionDeUsuariosController;
 import org.secureaccess.app.secureaccessfrontend.controllers.users.RegistroPoliciaController;
 
@@ -63,6 +64,8 @@ public class MenuAdministradorController {
             ((RegistroPoliciaController) controller).setAdministradorActual(this.administradorActual);
         } else if (controller instanceof GestionDeUsuariosController) {
             ((GestionDeUsuariosController) controller).setAdministradorActual(this.administradorActual);
+        } else if (controller instanceof ListaDelincuentesAdminController) {
+            ((ListaDelincuentesAdminController) controller).setAdministradorActual(this.administradorActual);
         }
 
         Scene scene = new Scene(root);
