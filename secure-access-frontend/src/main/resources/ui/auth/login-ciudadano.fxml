@@ -48,7 +48,7 @@
 
                         <VBox spacing="5.0">
                            <Label style="-fx-font-weight: bold;" text="Nombre de usuario" />
-                           <TextField fx:id="correoUsuarioCiudadano" prefHeight="35.0" promptText="correo@ejemplo.com" />
+                           <TextField fx:id="correoUsuarioCiudadano" prefHeight="35.0" promptText="Ingrese su nombre de usuario" />
                         </VBox>
 
                         <VBox spacing="5.0">

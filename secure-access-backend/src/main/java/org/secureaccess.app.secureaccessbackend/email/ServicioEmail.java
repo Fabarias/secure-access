@@ -1,162 +1,118 @@
 package org.secureaccess.app.secureaccessbackend.email;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+
 import java.time.LocalDateTime;
 import java.util.Properties;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class ServicioEmail {
 
-    // HashMap para almacenar: email -> DatosCodigo (evita códigos repetidos)
     private final Map<String, DatosCodigo> codigosPorEmail;
-
-    // Generador de códigos
     private final GeneradorCodigos generador;
-
-    // Tiempo de validez en minutos
     private static final int MINUTOS_VALIDEZ = 10;
+    private final ExecutorService executorService;
 
-    /**
-     * Constructor
-     */
+
     public ServicioEmail() {
         this.codigosPorEmail = new HashMap<>();
         this.generador = new GeneradorCodigos();
+        this.executorService = Executors.newFixedThreadPool(2, r -> {
+            Thread t = new Thread(r);
+            t.setDaemon(true);
+            t.setName("EmailSender-Thread");
+            return t;
+        });
     }
 
-    /**
-     * MÉTODO 1: Envía código de verificación al email (genera automáticamente).
-     *
-     * @param email Email del destinatario
-     * @param nombreUsuario Nombre del usuario para personalizar el email
-     * @return true si se envió correctamente
-     */
     public boolean enviarCodigoVerificacion(String email, String nombreUsuario) {
         try {
-            // 1. Generar código único
+
             String codigo = generador.generar();
 
-            // 2. Verificar que no exista código repetido (aunque es muy improbable)
-            while (codigosPorEmail.containsKey(email)) {
-                codigo = generador.generar(); // Regenerar si existe
-            }
-
-            // 3. Guardar en HashMap con timestamp
             DatosCodigo datos = new DatosCodigo(codigo, LocalDateTime.now());
             codigosPorEmail.put(email, datos);
 
-            System.out.println("✓ Código generado para " + email + ": " + codigo);
+            Future<Boolean> futuro = executorService.submit(() -> enviarEmail(email, nombreUsuario, codigo));
 
-            // 4. Enviar por email
-            boolean enviado = enviarEmail(email, nombreUsuario, codigo);
+            try {
+                boolean resultado = futuro.get(15, TimeUnit.SECONDS);
 
-            if (!enviado) {
-                // Si no se pudo enviar, eliminar del HashMap
+                if (!resultado) {
+                    System.err.println("✗ No se pudo enviar, eliminando código");
+                    codigosPorEmail.remove(email);
+                }
+
+                return resultado;
+
+            } catch (java.util.concurrent.TimeoutException e) {
+                futuro.cancel(true);
                 codigosPorEmail.remove(email);
-                System.out.println("✗ No se pudo enviar el email, código eliminado");
                 return false;
             }
 
-            return true;
-
         } catch (Exception e) {
-            System.err.println("✗ Error en enviarCodigoVerificacion: " + e.getMessage());
             e.printStackTrace();
+            codigosPorEmail.remove(email);
             return false;
         }
     }
 
-    /**
-     * MÉTODO 2: Verifica si el código ingresado es correcto.
-     *
-     * @param email Email del usuario
-     * @param codigoIngresado Código que el usuario escribió
-     * @return true si el código es válido
-     */
     public boolean verificarCodigo(String email, String codigoIngresado) {
-        // Verificar si existe un código para este email
         DatosCodigo datosGuardados = codigosPorEmail.get(email);
 
-        if (datosGuardados == null) {
-            System.out.println("✗ No existe código para: " + email);
+        if (datosGuardados == null) return false;
+
+        if (datosGuardados.haExpirado()) {
+            codigosPorEmail.remove(email);
             return false;
         }
 
-        // Verificar si el código ha expirado
-        if (datosGuardados.haExpirado(MINUTOS_VALIDEZ)) {
-            System.out.println("✗ Código expirado para: " + email);
-            codigosPorEmail.remove(email); // Limpiar código expirado
-            return false;
-        }
 
-        // Verificar si el código coincide
         boolean esValido = datosGuardados.codigo.equals(codigoIngresado);
 
         if (esValido) {
-            System.out.println("✓ Código válido para: " + email);
-            codigosPorEmail.remove(email); // Eliminar código usado
-        } else {
-            System.out.println("✗ Código incorrecto para: " + email);
+            codigosPorEmail.remove(email);
         }
-
         return esValido;
     }
 
-    /**
-     * Verifica si existe un código activo para un email.
-     *
-     * @param email Email a verificar
-     * @return true si hay un código activo y no ha expirado
-     */
     public boolean tieneCodigoActivo(String email) {
         DatosCodigo datos = codigosPorEmail.get(email);
-        return datos != null && !datos.haExpirado(MINUTOS_VALIDEZ);
+        return datos != null && !datos.haExpirado();
     }
 
-    /**
-     * Limpia códigos expirados del sistema.
-     */
+
     public void limpiarCodigosExpirados() {
         int cantidadAntes = codigosPorEmail.size();
 
         codigosPorEmail.entrySet().removeIf(entry ->
-                entry.getValue().haExpirado(MINUTOS_VALIDEZ)
+                entry.getValue().haExpirado()
         );
 
         int cantidadDespues = codigosPorEmail.size();
         int eliminados = cantidadAntes - cantidadDespues;
-
-        System.out.println("✓ Códigos expirados eliminados: " + eliminados);
-        System.out.println("  Códigos activos restantes: " + cantidadDespues);
     }
 
-    /**
-     * Obtiene la cantidad de códigos activos en memoria.
-     */
     public int cantidadCodigosActivos() {
         return codigosPorEmail.size();
     }
 
-    // ========== MÉTODOS PRIVADOS INTERNOS ==========
-
-    /**
-     * Método privado que envía el email físicamente.
-     */
     private boolean enviarEmail(String emailDestino, String nombreUsuario, String codigo) {
-        String asunto = "SecureAccess - Código de Verificación";
-        String mensajeHTML = construirHTMLCodigoVerificacion(nombreUsuario, codigo);
+
+        ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
         try {
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", ConfiguracionEmail.SMTP_HOST);
-            props.put("mail.smtp.port", ConfiguracionEmail.SMTP_PORT);
-            props.put("mail.smtp.ssl.trust", ConfiguracionEmail.SMTP_HOST);
-            props.put("mail.smtp.ssl.protocols", ConfiguracionEmail.PROTOCOLO_SSL);
+            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+
+            Properties props = getProperties();
 
             Session session = Session.getInstance(props, new Authenticator() {
                 @Override
@@ -174,22 +130,42 @@ public class ServicioEmail {
                     ConfiguracionEmail.NOMBRE_REMITENTE
             ));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDestino));
-            message.setSubject(asunto);
+            message.setSubject("SecureAccess - Código de Verificación");
+
+            String mensajeHTML = construirHTMLCodigoVerificacion(nombreUsuario, codigo);
             message.setContent(mensajeHTML, "text/html; charset=utf-8");
 
             Transport.send(message);
-            System.out.println("✓ Email enviado a: " + emailDestino);
             return true;
 
-        } catch (Exception e) {
-            System.err.println("✗ Error al enviar email: " + e.getMessage());
+        } catch (MessagingException e) {
+            e.printStackTrace();
             return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            Thread.currentThread().setContextClassLoader(originalClassLoader);
         }
     }
 
-    /**
-     * Construye el HTML del email de verificación.
-     */
+    private static Properties getProperties() {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", ConfiguracionEmail.SMTP_HOST);
+        props.put("mail.smtp.port", ConfiguracionEmail.SMTP_PORT);
+        props.put("mail.smtp.ssl.trust", ConfiguracionEmail.SMTP_HOST);
+        props.put("mail.smtp.ssl.protocols", ConfiguracionEmail.PROTOCOLO_SSL);
+
+        props.put("mail.smtp.connectiontimeout", "10000");
+        props.put("mail.smtp.timeout", "10000");
+        props.put("mail.smtp.writetimeout", "10000");
+
+        props.put("mail.debug", "true");
+        return props;
+    }
+
     private String construirHTMLCodigoVerificacion(String nombreUsuario, String codigo) {
         return String.format("""
             <!DOCTYPE html>
@@ -218,9 +194,6 @@ public class ServicioEmail {
 
     // ========== CLASE INTERNA ==========
 
-    /**
-     * Clase interna para almacenar código con timestamp.
-     */
     private static class DatosCodigo {
         final String codigo;
         final LocalDateTime timestamp;
@@ -230,10 +203,8 @@ public class ServicioEmail {
             this.timestamp = timestamp;
         }
 
-        boolean haExpirado(int minutosValidez) {
-            LocalDateTime ahora = LocalDateTime.now();
-            LocalDateTime expiracion = timestamp.plusMinutes(minutosValidez);
-            return ahora.isAfter(expiracion);
+        boolean haExpirado() {
+            return LocalDateTime.now().isAfter(timestamp.plusMinutes(MINUTOS_VALIDEZ));
         }
     }
 }

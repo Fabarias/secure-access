@@ -1,6 +1,8 @@
 package org.secureaccess.app.secureaccessfrontend.controllers.auth;
 
 import javafx.animation.KeyFrame;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,6 +49,9 @@ public class VerificacionAdminController implements Initializable {
         tiempoRestante = 60;
         botonVerificar.setDisable(false);
         botonReenviar.setVisible(false);
+        botonReenviar.setDisable(true);
+
+        if (timeLine != null) timeLine.stop();
 
         timeLine = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             tiempoRestante--;
@@ -85,14 +90,69 @@ public class VerificacionAdminController implements Initializable {
     @FXML
     private void reenviarCodigo(ActionEvent event) {
 
-        boolean enviado = GestorServicios.getServicioEmail()
-                .enviarCodigoVerificacion(adminPendiente.getCorreo(), adminPendiente.getPrimerNombre());
+        botonReenviar.setDisable(true);
+        lblReloj.setText("Enviando...");
 
-        if (enviado) {
-            Alerta.mostrar("Enviado", "Se ha enviado un nuevo código");
-            txtCodigo.clear();
-            iniciarConteo();
-        } else Alerta.mostrar("Error", "No se pudo reenviar el correo");
+        Task<Boolean> tareaEnvio = new Task<>() {
+            @Override
+            protected Boolean call() {
+
+                try {
+                    return GestorServicios.getServicioEmail()
+                            .enviarCodigoVerificacion(
+                                    adminPendiente.getCorreo(),
+                                    adminPendiente.getPrimerNombre()
+                            );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        };
+
+        tareaEnvio.setOnSucceeded(e -> {
+            boolean enviado = tareaEnvio.getValue();
+
+            if (enviado) {
+                Platform.runLater(() -> {
+                    Alerta.mostrar("Enviado", "Se ha enviado un nuevo código a tu correo.");
+                    txtCodigo.clear();
+                    iniciarConteo();
+                });
+            } else {
+                Platform.runLater(() -> {
+                    Alerta.mostrar("Error", "No se pudo reenviar el correo. Verifica tu conexión.");
+                    lblReloj.setText("Error");
+                    botonReenviar.setDisable(false);
+                });
+            }
+        });
+
+        tareaEnvio.setOnFailed(e -> {
+            Throwable ex = tareaEnvio.getException();
+            if (ex != null) {
+                ex.printStackTrace();
+            }
+
+            Platform.runLater(() -> {
+                Alerta.mostrar("Error Crítico", "Ocurrió un error al enviar el correo.");
+                lblReloj.setText("Error");
+                botonReenviar.setDisable(false);
+            });
+        });
+
+        tareaEnvio.setOnCancelled(e -> {
+            System.err.println(">>> [TASK] Tarea cancelada");
+            Platform.runLater(() -> {
+                lblReloj.setText("Cancelado");
+                botonReenviar.setDisable(false);
+            });
+        });
+
+        Thread hilo = new Thread(tareaEnvio);
+        hilo.setDaemon(true);
+        hilo.setName("JavaFX-EmailTask");
+        hilo.start();
     }
 
     @FXML
@@ -121,7 +181,4 @@ public class VerificacionAdminController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-
-
 }
