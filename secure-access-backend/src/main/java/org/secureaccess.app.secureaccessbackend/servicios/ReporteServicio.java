@@ -64,17 +64,18 @@ public class ReporteServicio {
 
     public List<Reporte> obtenerHistorialPersonal(Usuario ciudadano) {
 
-        if (ciudadano.getUsuarioId() != 3) return Collections.emptyList();
+        if (ciudadano.getRolId() != 3) return Collections.emptyList();
 
         return repositorioReporte.listarPorCiudadano(ciudadano.getUsuarioId());
     }
 
-    public void gestionarReporte(Usuario policia, int idReporte, boolean aceptar) {
+    public boolean gestionarReporte(Usuario policia, int idReporte, boolean aceptar) {
 
-        if (policia.getRolId() != 2) return;
+        if (policia.getRolId() != 2) return false;
 
         String nuevoEstado = aceptar ? "Atendido" : "Denegado";
 
         repositorioReporte.actualizarEstado(idReporte, nuevoEstado);
+        return true;
     }
 }

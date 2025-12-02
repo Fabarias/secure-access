@@ -33,6 +33,7 @@ public class RepositorioDelito {
         return Optional.empty();
     }
 
+
     public Optional<Delito> buscarPorId(int delitoId) {
         String sql = "SELECT * FROM delitos WHERE delito_id = ?";
 
@@ -47,7 +48,7 @@ public class RepositorioDelito {
                      return Optional.of(new Delito(
                              resultSet.getInt("delito_id"),
                              resultSet.getString("delito_nombre"),
-                             resultSet.getInt("activo")
+                             resultSet.getInt("estado")
                      ));
                  }
              }

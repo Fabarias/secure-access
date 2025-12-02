@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.secureaccess.app.secureaccessbackend.modelos.Usuario;
 import org.secureaccess.app.secureaccessfrontend.controllers.crimes.ListaDelincuentesPoliciaController;
+import org.secureaccess.app.secureaccessfrontend.controllers.crimes.RegistroDelincuenteController;
 import org.secureaccess.app.secureaccessfrontend.controllers.reports.RevisionReportesController;
 
 import java.io.IOException;
@@ -41,6 +42,11 @@ public class MenuPoliciaController {
     }
 
     @FXML
+    private void irARegistrarDelincuente(ActionEvent event) throws IOException {
+        cambiarEscena(event, "/ui/crimes/registro-delincuente.fxml", "Registrar Delincuente");
+    }
+
+    @FXML
     private void irAListadoDelincuentes(ActionEvent event) throws IOException {
         cambiarEscena(event, "/ui/crimes/lista-policia.fxml", "Listado de Buscados - Policía");
     }
@@ -60,6 +66,8 @@ public class MenuPoliciaController {
              ((ListaDelincuentesPoliciaController) loader.getController()).setUsuarioActual(this.policiaActual);
          } else if (loader.getController() instanceof RevisionReportesController) {
              ((RevisionReportesController) loader.getController()).setPoliciaActual(this.policiaActual);
+         } else if (loader.getController() instanceof RegistroDelincuenteController) {
+             ((RegistroDelincuenteController) loader.getController()).setPoliciaActual(this.policiaActual);
          }
 
         Scene scene = new Scene(root);

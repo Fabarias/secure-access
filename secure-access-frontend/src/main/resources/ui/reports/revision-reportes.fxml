@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="root" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.reports.RevisionReportesController">
@@ -15,7 +17,6 @@
         <AnchorPane prefHeight="80.0" BorderPane.alignment="CENTER">
             <children>
                 <Label alignment="CENTER" layoutX="300.0" layoutY="25.0" mouseTransparent="true" styleClass="title-header" text="Reportes Ciudadanos (Pendientes)" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
-
                 <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="button-secondary" text="Regresar al Menú" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0" />
             </children>
         </AnchorPane>
@@ -24,10 +25,9 @@
     <center>
         <VBox spacing="10.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
             </padding>
             <children>
-
                 <TableView fx:id="tablaReportes" styleClass="police-table" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="columnaEnviadoPor" prefWidth="200.0" text="Reporte enviado por" />
@@ -39,11 +39,22 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-
-                <Label style="-fx-font-style: italic; -fx-font-size: 12px;" text="* Mostrando solo reportes en estado 'Pendiente' o 'Espera'." />
-
+                <Label style="-fx-font-style: italic; -fx-font-size: 12px;" text="* Seleccione un reporte para gestionarlo." />
             </children>
         </VBox>
     </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="20.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+            <children>
+                <Region HBox.hgrow="ALWAYS" /> <Button mnemonicParsing="false" onAction="#rechazarReporte" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 4;" text="Rechazar" />
+
+                <Button mnemonicParsing="false" onAction="#atenderReporte" prefHeight="40.0" prefWidth="150.0" styleClass="button-police" text="Atender Reporte" />
+            </children>
+        </HBox>
+    </bottom>
 
 </BorderPane>

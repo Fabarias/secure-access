@@ -52,6 +52,7 @@ public class ListaDelincuentesPoliciaController implements Initializable {
     public void initialize(URL location, ResourceBundle resourceBundle) {
         configurarColumnas();
         cargarDepartamentos();
+        cargarDatos();
 
         buscarDelicuentes(null);
     }
@@ -73,6 +74,27 @@ public class ListaDelincuentesPoliciaController implements Initializable {
                 .asObject());
 
         tablaDelincuentes.getColumns().forEach(col -> col.setReorderable(false));
+    }
+
+    private void cargarDatos() {
+        List<Delincuente> listaCruda = repoDelincuente.buscarTodos();
+
+        List<DelincuentePoliciaView> listaVista = listaCruda.stream()
+                .map(d -> {
+
+                    String nombreDelito = repoDelito.buscarNombrePorDelincuenteId(d.getDelincuenteId())
+                            .orElse("No especificado");
+
+                    return new DelincuentePoliciaView(
+                            d.getDelincuentePrimerNombre(),
+                            d.getApellidosCompletos(),
+                            nombreDelito,
+                            d.getRecompensa()
+                    );
+                })
+                .collect(Collectors.toList());
+
+        tablaDelincuentes.setItems(FXCollections.observableArrayList(listaVista));
     }
 
     private void cargarDepartamentos() {
@@ -98,7 +120,7 @@ public class ListaDelincuentesPoliciaController implements Initializable {
 
         List<Delincuente> resultadosBrutos;
 
-        if (departamentoSeleccionado == null || "Todos los Departamentos".equals(departamentoSeleccionado)) {
+        if (departamentoSeleccionado == null || "Todos los Distritos".equals(departamentoSeleccionado)) {
             resultadosBrutos = repoDelincuente.buscarTodos();
         } else {
 

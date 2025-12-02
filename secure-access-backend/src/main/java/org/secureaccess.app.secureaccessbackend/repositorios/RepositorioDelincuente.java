@@ -82,22 +82,88 @@ public class RepositorioDelincuente {
         );
     }
 
-    public void Top3DelicuentesBuscados(String departamento) {
+    public boolean guardarConDelito(Delincuente delincuente, int idDelito) {
 
-        String sql = "SELECT d.* FROM delincuentes d " +
-                "JOIN lugares_de_requisitoria l ON d.lugar_de_requisitoria_id = l.lugar_de_requisitoria_id " +
-                "WHERE l.lugar_de_requisitoria_nombre = ? " +
-                "ORDER BY d.recompensa DESC LIMIT 3";
+        String sql = "INSERT INTO delincuentes (delincuente_primer_nombre," +
+                "delincuente_primer_apellido," +
+                "delincuente_segundo_apellido," +
+                "lugar_de_requisitoria_id," +
+                "usuario_registro_id," +
+                "recompensa," +
+                "delincuente_fecha_registro) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = DataBaseControl.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery();) {
+        String sqlRelacion = "INSERT INTO delincuentes_delitos (delincuente_id, delito_id) VALUES (?, ?)";
 
-            while (resultSet.next()) {
-                String nombre = resultSet.getString("Nombre");
+        Connection connection = null;
+        PreparedStatement statementDelincuente = null;
+        PreparedStatement statementRelacion = null;
+
+        try {
+            connection = DataBaseControl.getConnection();
+            connection.setAutoCommit(false);
+
+            statementDelincuente = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statementDelincuente.setString(1, delincuente.getDelincuentePrimerNombre());
+            statementDelincuente.setString(2, delincuente.getDelincuentePrimerApellido());
+            statementDelincuente.setString(3, delincuente.getDelincuenteSegundoApellido());
+            statementDelincuente.setInt(4, delincuente.getLugarDeRequisitoriaId());
+            statementDelincuente.setInt(5, delincuente.getUsuarioRegistroId());
+            statementDelincuente.setDouble(6, delincuente.getRecompensa());
+
+            LocalDateTime fechaParaGuardar = delincuente.getFechaRegistro();
+            if (fechaParaGuardar == null) fechaParaGuardar = LocalDateTime.now();
+
+            statementDelincuente.setTimestamp(7, Timestamp.valueOf(fechaParaGuardar));
+
+            if (statementDelincuente.executeUpdate() == 0)
+                throw new SQLException("Fallo en la creación del delincuente.");
+
+            int idGenerado = -1;
+            try (ResultSet llavesGeneradas = statementDelincuente.getGeneratedKeys()) {
+                if (llavesGeneradas.next()) {
+                    idGenerado = llavesGeneradas.getInt(1);
+                } else {
+                    throw new SQLException("No se obtuvo el ID del delincuente");
+                }
             }
+
+            statementRelacion = connection.prepareStatement(sqlRelacion);
+            statementRelacion.setInt(1, idGenerado);
+            statementRelacion.setInt(2, idDelito);
+            statementRelacion.executeUpdate();
+
+            connection.commit();
+            return true;
         } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    e.printStackTrace();
+                }
+            }
             e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (statementDelincuente != null) statementDelincuente.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (statementRelacion != null) statementRelacion.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (connection != null) connection.setAutoCommit(true);
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

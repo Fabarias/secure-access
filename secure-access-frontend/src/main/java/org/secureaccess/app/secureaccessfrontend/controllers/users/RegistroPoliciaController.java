@@ -59,7 +59,6 @@ public class RegistroPoliciaController implements Initializable {
                                                              newVal) -> {
             if (!newVal) intentarGenerarUsuario();
         });
-
     }
 
     @FXML

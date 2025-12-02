@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="root" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.secureaccess.app.secureaccessfrontend.controllers.crimes.RegistroDelincuenteController">
+
+    <top>
+        <AnchorPane prefHeight="80.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="button-secondary" text="Regresar al Menú" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0" />
+            </children>
+        </AnchorPane>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" top="10.0" />
+            </padding>
+            <children>
+
+                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="700.0" styleClass="role-box">
+                    <padding>
+                        <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                    </padding>
+                    <children>
+
+                        <Label styleClass="role-title" text="Nuevo Registro Criminal">
+                            <VBox.margin>
+                                <Insets bottom="5.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" style="-fx-text-fill: #8892B0;" text="Ingrese los datos del sujeto y el delito imputado" wrapText="true">
+                            <VBox.margin>
+                                <Insets bottom="25.0" />
+                            </VBox.margin>
+                        </Label>
+
+                        <VBox alignment="CENTER_LEFT" spacing="15.0">
+                            <children>
+
+                                <VBox spacing="5.0">
+                                    <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Nombre" />
+                                    <TextField fx:id="txtNombres" prefHeight="35.0" promptText="Ingrese los nombres" styleClass="police-input" />
+                                </VBox>
+
+                                <HBox spacing="20.0">
+                                    <children>
+                                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                            <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Apellido Paterno" />
+                                            <TextField fx:id="txtPaterno" prefHeight="35.0" styleClass="police-input" />
+                                        </VBox>
+                                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                            <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Apellido Materno" />
+                                            <TextField fx:id="txtMaterno" prefHeight="35.0" styleClass="police-input" />
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox prefWidth="400.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                                            <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Delito Cometido" />
+                                            <ComboBox fx:id="comboDelito" maxWidth="Infinity" prefHeight="35.0" promptText="Seleccione delito" styleClass="police-combo" />
+                                        </VBox>
+
+                                        <VBox prefWidth="200.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                                            <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Recompensa (S/.)" />
+                                            <TextField fx:id="txtRecompensa" prefHeight="35.0" promptText="0.00" styleClass="police-input" />
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <VBox spacing="5.0">
+                                    <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Lugar de Requisitoria" />
+                                    <ComboBox fx:id="comboLugar" maxWidth="Infinity" prefHeight="35.0" promptText="Seleccione la región" styleClass="police-combo" visibleRowCount="5" />
+                                </VBox>
+
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="30.0" />
+                            </VBox.margin>
+                        </VBox>
+
+                        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#guardarRegistro" prefHeight="45.0" styleClass="button-police" text="Registrar Ficha">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Button>
+
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>

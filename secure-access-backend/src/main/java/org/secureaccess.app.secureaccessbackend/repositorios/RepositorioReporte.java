@@ -130,13 +130,13 @@ public class RepositorioReporte {
 
     private Reporte mapearReporte(ResultSet resultSet) throws SQLException {
 
-        Timestamp timestamp = resultSet.getTimestamp("fechaDelito");
+        Timestamp timestamp = resultSet.getTimestamp("fecha_delito");
         LocalDateTime fecha = (timestamp != null) ? timestamp.toLocalDateTime() : null;
 
         return new Reporte(
                 resultSet.getInt("reporte_id"),
-                resultSet.getInt("delito_id"),
                 resultSet.getInt("categoria_delito_id"),
+                resultSet.getInt("delito_id"),
                 resultSet.getString("departamento"),
                 resultSet.getInt("ciudadano_id"),
                 fecha,

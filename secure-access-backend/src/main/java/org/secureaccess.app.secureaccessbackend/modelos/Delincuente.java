@@ -34,6 +34,21 @@ public class Delincuente {
             this.recompensa = recompensa;
         }
 
+    public Delincuente(String primerNombre,
+                       String primerApellido,
+                       String segundoApellido,
+                       int lugarRequisitoriaId,
+                       int usuarioRegistroId,
+                       double recompensa) {
+
+        this.delincuentePrimerNombre = primerNombre;
+        this.delincuentePrimerApellido = primerApellido;
+        this.delincuenteSegundoApellido = segundoApellido;
+        this.lugarDeRequisitoriaId = lugarRequisitoriaId;
+        this.usuarioRegistroId = usuarioRegistroId;;
+        this.recompensa = recompensa;
+    }
+
     public Delincuente(int delincuenteId,
                        String primerNombre,
                        String primerApellido,

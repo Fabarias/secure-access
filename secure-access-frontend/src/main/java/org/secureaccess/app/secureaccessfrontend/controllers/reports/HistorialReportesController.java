@@ -46,7 +46,6 @@ public class HistorialReportesController implements Initializable {
 
     public void setCiudadanoActual(Usuario ciudadano) {
         this.ciudadanoActual = ciudadano;
-
         cargarDatosIniciales();
     }
 
@@ -69,7 +68,7 @@ public class HistorialReportesController implements Initializable {
 
     private void configurarFiltros() {
 
-        comboEstado.getItems().addAll("Todos", "Atendido", "Espera", "Denegado");
+        comboEstado.getItems().addAll("Todos", "Espera", "Atendido", "Denegado");
         comboEstado.getSelectionModel().select("Espera");
     }
 
@@ -87,13 +86,13 @@ public class HistorialReportesController implements Initializable {
         String estadoEstablecido = comboEstado.getValue();
 
         List<ReporteCiudadanoView> listaFiltrada = historialCompleto.stream()
-                .filter(r -> "Todos".equals(estadoEstablecido) || r.getEstadoReporte() == null
+                .filter(r -> "Todos".equals(estadoEstablecido) || r.getEstadoReporte() != null
                 && r.getEstadoReporte().equalsIgnoreCase(estadoEstablecido))
                 .sorted(Comparator.comparing(Reporte::getFechaDelito).reversed())
                 .map(this::convertirAViewModel)
                 .collect(Collectors.toList());
 
-        ObservableList<ReporteCiudadanoView> items = FXCollections.observableArrayList();
+        ObservableList<ReporteCiudadanoView> items = FXCollections.observableArrayList(listaFiltrada);
         tablaReportes.setItems(items);
     }
 

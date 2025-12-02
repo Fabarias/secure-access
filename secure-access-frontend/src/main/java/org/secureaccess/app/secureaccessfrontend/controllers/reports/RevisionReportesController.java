@@ -21,6 +21,7 @@ import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioReporte;
 import org.secureaccess.app.secureaccessbackend.repositorios.RepositorioUsuario;
 import org.secureaccess.app.secureaccessbackend.servicios.ReporteServicio;
 import org.secureaccess.app.secureaccessfrontend.controllers.dashboard.MenuPoliciaController;
+import org.secureaccess.app.secureaccessfrontend.util.Alerta;
 import org.secureaccess.app.secureaccessfrontend.viewModels.ReportePoliciaView;
 
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class RevisionReportesController implements Initializable {
 
     public void setPoliciaActual(Usuario policia) {
         this.policiaActual = policia;
+        cargarDatos();
     }
 
     @Override
@@ -80,6 +82,7 @@ public class RevisionReportesController implements Initializable {
             String urgencia = mapaCategorias.getOrDefault(r.getCategoriaDelitoId(), "Desconocida");
 
             return new ReportePoliciaView(
+                    r.getReporteId(),
                     nombreCiudadano,
                     nombreDelito,
                     r.getFechaDelito().format(formatter),
@@ -89,6 +92,32 @@ public class RevisionReportesController implements Initializable {
 
         ObservableList<ReportePoliciaView> listaObservable = FXCollections.observableArrayList(datosVista);
         tablaReportes.setItems(listaObservable);
+    }
+
+    @FXML
+    private void atenderReporte(ActionEvent event) {
+        gestionarReporteSeleccionado("Atendido", true);
+    }
+
+    @FXML
+    private void rechazarReporte(ActionEvent event) {
+        gestionarReporteSeleccionado("Denegado", false);
+    }
+
+    private void gestionarReporteSeleccionado(String nuevoEstado, boolean elegirEstado) {
+
+        ReportePoliciaView seleccionado = tablaReportes.getSelectionModel().getSelectedItem();
+
+        if (seleccionado == null) {
+            Alerta.mostrar("Selección Requerida", "Por favor, seleccione un reporte de la tabla.");
+            return;
+        }
+
+        if (reporteServicio.gestionarReporte(this.policiaActual, seleccionado.idReporte().intValue(), elegirEstado)) {
+            Alerta.mostrar("Exito", "El reporte ha sido marcado como " + nuevoEstado);
+            cargarDatos();
+        } else Alerta.mostrar("Error", "No se pudo actualizar el estado del reporte.");
+
     }
 
     private void configurarColumnas() {
