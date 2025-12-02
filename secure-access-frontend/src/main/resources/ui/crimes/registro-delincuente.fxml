@@ -75,7 +75,7 @@
 
                                 <VBox spacing="5.0">
                                     <Label style="-fx-font-weight: bold; -fx-text-fill: #E6F1FF;" text="Lugar de Requisitoria" />
-                                    <ComboBox fx:id="comboLugar" maxWidth="Infinity" prefHeight="35.0" promptText="Seleccione la región" styleClass="police-combo" visibleRowCount="5" />
+                                    <ComboBox fx:id="comboLugar" maxWidth="Infinity" prefHeight="35.0" promptText="Selecciones el distrito" styleClass="police-combo" visibleRowCount="5" />
                                 </VBox>
 
                             </children>
